@@ -13,7 +13,17 @@
             <SimpleTab @selected-tab="getTab"/>
 
             <div class="tab-result-content" id="tab-result-content">
-                <TaskForm v-if="currentTab === 'agregar tareas'"/>
+                <TaskForm v-if="currentTab === 'agregar tareas'" class="form"/>
+                <div v-else-if="currentTab === 'tareas definidas'">
+                    <h1 style="font-family: 'Roboto';
+                    width: fit-content;
+                    font-weight: lighter;
+                    text-align: center;
+                    margin-top: 20vh;
+                    box-shadow: 5px 2px 14px 5px rgb(0, 0, 0, 0.3);
+                    padding: 15px;
+                    ">Aun no hago este jeje >:3</h1>
+                </div>
             </div>
         </main>
     </div>
@@ -102,6 +112,9 @@ main {
 
 .tab-result-content {
     width: inherit;
-    height: 100vh;
+    height: 100%;
+}
+.form {
+    margin-top: 1.7vh;
 }
 </style>

@@ -3,19 +3,19 @@
     <form>
       <div class="row">
         <h4>Account</h4>
-        <div class="input-group input-group-icon">
+        <div class="input-group">
           <input type="text" placeholder="Full Name" v-model="fullName" />
           <div class="input-icon">
             <i class="fa fa-user"></i>
           </div>
         </div>
-        <div class="input-group input-group-icon">
+        <div class="input-group">
           <input type="email" placeholder="Email Address" v-model="email" />
           <div class="input-icon">
             <i class="fa fa-envelope"></i>
           </div>
         </div>
-        <div class="input-group input-group-icon">
+        <div class="input-group">
           <input type="password" placeholder="Password" v-model="password" />
           <div class="input-icon">
             <i class="fa fa-key"></i>
@@ -27,14 +27,10 @@
         <div class="col-half">
           <h4>Date of Birth</h4>
           <div class="input-group">
+            
             <div class="col-third">
-              <input type="text" placeholder="DD" v-model="dob.day" />
-            </div>
-            <div class="col-third">
-              <input type="text" placeholder="MM" v-model="dob.month" />
-            </div>
-            <div class="col-third">
-              <input type="text" placeholder="YYYY" v-model="dob.year" />
+              <!-- Poner datepicker aqui -->
+                 <VueDatePicker v-model="date" :format="format" :min-date="new Date()"/>
             </div>
           </div>
         </div>
@@ -131,7 +127,15 @@
 </template>
 
 <script>
+
+import { ref } from 'vue';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
+
 export default {
+  components: {
+    VueDatePicker
+  },
   data() {
     return {
       fullName: '',
@@ -149,11 +153,22 @@ export default {
       expirationMonth: '',
       expirationYear: '',
       termsAccepted: false,
+      date: ref(new Date()),
     };
   },
-};
-</script>
+  methods: {
+    format(date){
+      const day = date.getDate();
+      const month = date.getMonth();
+      const year = date.getFullYear();
+      const hours = `${date.getHours()}:${date.getMinutes()}`
 
+      return `${day}/${month}/${year} a las ${hours}`;
+    }
+  },
+};
+
+</script>
 <style scoped>
 /* 64ac15 */
 *,
@@ -335,7 +350,7 @@ select option {
   width: 100%;
   background-color: #f9f9f9;
   border-radius: 4.2px;
-  box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.05);
 }
 .row {
   zoom: 1;
@@ -374,5 +389,4 @@ select option {
 h4, span {
   font-family: 'Roboto', Verdana, Geneva, Tahoma, sans-serif;
 }
-
 </style>

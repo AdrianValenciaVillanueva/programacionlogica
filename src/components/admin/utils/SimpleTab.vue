@@ -45,9 +45,9 @@ ul {
     display: flex;
     list-style-type: none;
     width: 100%;
-    height: 17vh;
+    height: 10vh;
     justify-content: flex-start;
-    box-shadow: 1px 0px 5px rgb(0, 0, 0.2);
+    box-shadow: 0px 1px 15px 2px rgb(0, 0, 0, 0.2);
     align-items: center;
 }
 
