@@ -1,11 +1,11 @@
 <template>
     <div class="page-wrapper">
         <nav class="navbar-admin" id="navbar-admin" role="navigation">
-            <div class="team-and-id">
-                <ImagenConLabel :img="require('@/assets/team.png')" :texto="equipo" class="size"/>
-                <ImagenConLabel :img="require('@/assets/id.png')" :texto="codigo" class="size"/>
-            </div>
-            <ImagenConLabel :img="require('@/assets/profile.png')" :texto="admin" class="size" id="profile" />
+                <div class="team-and-id-obj">
+                    <ImagenConLabel :img="require('@/assets/team.png')" :texto="equipo"/>
+                    <ImagenConLabel :img="require('@/assets/id.png')" :texto="codigo"/>
+                    <ImagenConLabel :img="require('@/assets/profile.png')" :texto="admin" id="profile" />
+                </div>
         </nav>
 
         
@@ -13,8 +13,8 @@
             <SimpleTab @selected-tab="getTab"/>
 
             <div class="tab-result-content" id="tab-result-content">
-                <TaskForm v-if="currentTab === 'agregar tareas'" class="form"/>
-                <div v-else-if="currentTab === 'tareas definidas'">
+                <TaskForm v-if="currentTab === 'CREAR TAREAS'" class="form"/>
+                <div v-else-if="currentTab === 'VER TAREAS'">
                     <h1 style="font-family: 'Roboto';
                     width: fit-content;
                     font-weight: lighter;
@@ -71,22 +71,21 @@ export default {
 }
 
 .page-wrapper {
-    width: inherit;
+    width: 100%;
     height: inherit;
     background-color: #f9f9f9;
-}
+} 
 .navbar-admin {
     position: fixed;
-    left: 0;
     width: 100%;
     z-index: 1000;
+    left: 0;
     background-color: #062743;
-    height: 15vh;
+    height: 14.7vh;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     top: 0;
-    flex-flow: wrap;
     color: #f9f9f9;
 }
 .team-and-id {
@@ -94,18 +93,14 @@ export default {
     width: 30vw;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 15.5vw;
-    margin-left: 5vw;
 }
-.size {
-    width: 7vw;
-    height: 6vh;
+.team-and-id-obj  {
+    display: flex;
+    width: 12vh;
+    gap: 5em;
+    align-items: center;
+    justify-content: center;
 }
-
-#profile {
-    margin-right: 15vw;
-}
-
 main {
     margin-top: 15vh;
 }

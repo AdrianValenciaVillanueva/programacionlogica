@@ -19,7 +19,7 @@ export default {
     data() {
         return {
             selectedTab: null,
-            tabs: ['agregar tareas', 'tareas definidas'],  // Los tabs que se mostrarán
+            tabs: ['CREAR TAREAS', 'VER TAREAS'],  // Los tabs que se mostrarán
             hoverClass: {
                 type: String,  // Se define como string para recibir una clase desde el padre
                 default: ''
@@ -55,6 +55,7 @@ li {
     list-style-type: none;
     padding: 0 50px;
     height: 100%;
+    font-weight: bold;
     font-size: 1em;
     display: flex;
     cursor: pointer;

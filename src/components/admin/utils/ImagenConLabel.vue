@@ -27,18 +27,25 @@ export default {
 </script>
 
 <style scoped>
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
 .texto-imagen {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    float: left;
+    gap: 0.8em;
 }
 .imagen {
-    width: 8vw;
-    height: 7vh;
+    width: fit-content;
+    height: 2.7rem;
 }
 .texto {
-    font-size: 1em;
+    font-size: 1rem;
     font-family: 'Roboto', 'Source Sans Pro', Arial, Helvetica, sans-serif;
-    margin-left: 1.5vw;
+    /* margin-left: 1.5vw; */
 }
 </style>

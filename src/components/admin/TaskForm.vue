@@ -2,35 +2,25 @@
   <div class="container">
     <form>
       <div class="row">
-        <h4>Account</h4>
+        <h4>TITULO</h4>
         <div class="input-group">
-          <input type="text" placeholder="Full Name" v-model="fullName" />
-          <div class="input-icon">
-            <i class="fa fa-user"></i>
-          </div>
+          <input type="text" v-model="fullName" />
         </div>
-        <div class="input-group">
-          <input type="email" placeholder="Email Address" v-model="email" />
-          <div class="input-icon">
-            <i class="fa fa-envelope"></i>
-          </div>
-        </div>
-        <div class="input-group">
-          <input type="password" placeholder="Password" v-model="password" />
-          <div class="input-icon">
-            <i class="fa fa-key"></i>
-          </div>
-        </div>
+        <h4>DESCRIPCION</h4>
+          <textarea type="text" v-model="descripcion" ></textarea>
       </div>
 
       <div class="row">
         <div class="col-half">
-          <h4>Date of Birth</h4>
+          <h4>FECHA LIMITE DE ENTREGA</h4>
           <div class="input-group">
             
             <div class="col-third">
               <!-- Poner datepicker aqui -->
                  <VueDatePicker v-model="date" :format="format" :min-date="new Date()"/>
+            </div>
+            <div class="col-third">
+              
             </div>
           </div>
         </div>
@@ -141,6 +131,7 @@ export default {
       fullName: '',
       email: '',
       password: '',
+      descripcion: '',
       dob: {
         day: '',
         month: '',
@@ -186,7 +177,7 @@ body {
 h4 {
   color: #113A5D;
 }
-input,
+textarea, input,
 input[type="radio"] + label,
 input[type="checkbox"] + label:before,
 select option,
@@ -203,7 +194,13 @@ select {
   transition: 0.35s ease-in-out;
   transition: all 0.35s ease-in-out;
 }
-input:focus {
+textarea {
+  resize: none;
+}
+textarea, input {
+  font-size: 1.2em;
+}
+textarea:focus, input:focus {
   outline: 0;
   border-color: #bd8200;
 }
@@ -294,7 +291,7 @@ select option {
   background-color: #f0a500;
   color: #fff;
 }
-.input-group {
+textarea, .input-group {
   font-family: 'Roboto', Verdana, Geneva, Tahoma, sans-serif;
   margin-bottom: 1em;
   zoom: 1;
