@@ -5,7 +5,7 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-/*patitas suaves */
+/*patitas el joto */
 export default {
   name: 'App',
   components: {
