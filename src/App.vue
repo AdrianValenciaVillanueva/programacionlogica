@@ -1,16 +1,13 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  
   <PanelEquipoTareas></PanelEquipoTareas>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import PanelEquipoTareas from './components/PanelEquipoTareas.vue'
 export default {
   name: 'App',
   components: {
-    HelloWorld,
     PanelEquipoTareas
   }
 }
