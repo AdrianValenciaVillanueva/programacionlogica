@@ -5,11 +5,11 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-
+/*patitas suaves */
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorl
   }
 }
 </script>
