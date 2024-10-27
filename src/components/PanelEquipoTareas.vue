@@ -1,9 +1,20 @@
 <template>
   <body>
     <div class="Titulos">
-      <h2><span>Equipo:</span> nombre del equipo</h2>
-      <h2><span>Usuario:</span> usuario</h2>
-    </div>
+      <div class="apTitulo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+</svg>
+        <h2>Equipo</h2>
+      </div>
+      <div class="apTitulo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+</svg>
+<h2>Usuario</h2>
+</div>
+</div>
+
   <div class="PanelTareasEquipoPendientes">
 
 
@@ -111,10 +122,11 @@ export default {
 <style scoped>
 *{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  
+  box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 body{
-  background-color: #003b6f;
   margin: 0; /* Elimina el margen predeterminado */
   padding: 0; /* Elimina cualquier relleno predeterminado */
 }
@@ -131,6 +143,8 @@ body{
 
 
 .PanelTareasEquipoPendientes {
+  padding: 0;
+
   width: 95%;
   min-height: 600px;
   /* max-width: 1080px; */
@@ -143,23 +157,33 @@ body{
 
 .Titulos {
   background-color: #003b6f;
+  color: white;
   margin: 0;
-  
-  display: flex;
-  text-align: center;
-  margin-bottom: 20px;
-  justify-content: space-around;
-  border-bottom:1px solid #003b6f;
+  height: 80px;
+  display: flex;               /* Habilita flexbox */
+    justify-content: center;     /* Centra horizontalmente */
+    align-items: center;         /* Centra verticalmente */
+    margin: 0;
+gap: 22%;
+  /* border-bottom:1px solid #003b6f; */
+}
+.apTitulo{
+display: flex;
+  gap: 10px ;
 }
 .Titulos span{
   font-weight: bold;
 }
 .Titulos h2{
-  font-size: 1rem;
+  font-size: 25px;
 
 } 
+button{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 
+}
 .BotonesTipoTareas {
+  font-size: 16px;
   display: flex;
   justify-content: center;
   gap: 0 30%;
@@ -168,13 +192,14 @@ body{
 
 .BotonesTipo {
   padding: 10px 20px;
-  font-size: 14px;
+  font-size: 18px;
   background:none;
   color: black;
   /* background-color: #004b8d; */
   border: none;
   /* border-radius: 5px; */
   cursor: pointer;
+  font-weight: bold;
 }
 
 /*para el boton activo*/
@@ -249,6 +274,7 @@ body{
   justify-content: center;
   flex-direction: column;
   margin: auto;
+  font-weight: bold;
   /* gap: 2em; */
   gap: 3rem;
 }
