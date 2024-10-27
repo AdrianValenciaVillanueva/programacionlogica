@@ -84,4 +84,10 @@ li.active {
         padding: 10px;
     }
 }
+@media (min-height: 1200px), (min-width: 1815px) {
+    li {
+        font-size: 1.7rem;
+    }
+}
 </style>
+

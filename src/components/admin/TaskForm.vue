@@ -211,11 +211,13 @@ h4, span, .btn-container {
 }
 /* Estilo para el campo de entrada */
 
-@media (max-width: 590px) {
+@media (max-width: 650px) {
   .col-half {
     width: 100%;
     padding-right: 0;
   }
+}
+@media (max-width: 590px) {
   .row h4{
     font-size: 0.9em;
   }
@@ -223,5 +225,16 @@ h4, span, .btn-container {
     font-size: 0.8em;
   }
 
+}
+@media (min-height: 1200px), (min-width: 1815px) {
+  .row h4{
+    font-size: 1.9em;
+  }
+  .v-select, .row input, textarea{
+    font-size: 1.8em;
+  }
+  .btn-form {
+    font-size: 2em;
+  }
 }
 </style>

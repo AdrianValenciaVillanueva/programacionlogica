@@ -53,14 +53,13 @@ export default {
     font-family: Helvetica, sans-serif;
 }
 .content-container {
+    margin-top: 2em;
     width: 54%;
     padding: 0 4em 0em 4em;
-    border: 1px solid green;
     height: 100%;
 }
 .titulo {
     display: flex;
-    padding-top: 35px;
     position: relative;
     align-items: center;
     justify-content: space-between;

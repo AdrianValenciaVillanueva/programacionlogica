@@ -78,6 +78,7 @@ export default {
 
 .page-wrapper {
     width: 100%;
+    margin-top: -8px;
     background-color: #f9f9f9;
 } 
 .navbar-admin {
@@ -85,23 +86,18 @@ export default {
     width: 100%;
     z-index: 1000;
     left: 0;
+    top: 0;
     background-color: #062743;
     height: 14.7vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    top: 0;
     color: #f9f9f9;
 }
-.team-and-id {
-    display: flex;
-    width: 30vw;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
+
 .team-and-id-obj  {
     display: flex;
-    width: 5rem;
+    width: auto;
     gap: 5em;
     align-items: center;
     justify-content: center;
@@ -151,6 +147,20 @@ main {
         flex-flow: column;
         font-size: 0.8rem;
         gap: 15px;
+    }
+    .imgtext {
+        gap: 10px
+    }
+    .imgtext img {
+        left: 0;
+    }
+}
+@media (min-height: 1100px), (min-width: 1815px){
+    .tab-result-content h4{
+        font-size: 5px;
+    }
+    .team-and-id-obj {
+        font-size: 1.8em;
     }
     .imgtext {
         gap: 10px
