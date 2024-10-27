@@ -2,114 +2,35 @@
   <div class="container">
     <form>
       <div class="row">
-        <h4>TITULO</h4>
-        <div class="input-group">
-          <input type="text" v-model="fullName" />
+        <div class="col-half">
+          <h4>TITULO</h4>
+            <input type="text" v-model="fullName" />
         </div>
-        <h4>DESCRIPCION</h4>
-          <textarea type="text" v-model="descripcion" ></textarea>
+        <div class="col-half">
+          <h4>ASIGNACION DE USUARIOS</h4>
+              <VueSelect multiple v-model="selected" :options="items" :closeOnSelect="false"/>
+        </div>
       </div>
 
       <div class="row">
+        <div class="col-half">
+          <h4>DESCRIPCIÓN</h4>
+          <div class="input-group">
+            <textarea name="desc-task" id="desc-task"></textarea>
+          </div>
+        </div>
         <div class="col-half">
           <h4>FECHA LIMITE DE ENTREGA</h4>
           <div class="input-group">
-            
-            <div class="col-third">
-              <!-- Poner datepicker aqui -->
-                 <VueDatePicker v-model="date" :format="format" :min-date="new Date()"/>
-            </div>
-            <div class="col-third">
-              
-            </div>
+            <!-- Poner datepicker aqui -->
+              <VueDatePicker v-model="date" :format="format" :min-date="new Date()" teleport-center/>
           </div>
         </div>
 
-        <div class="col-half">
-          <h4>Gender</h4>
-          <div class="input-group">
-            <input
-              id="gender-male"
-              type="radio"
-              name="gender"
-              value="male"
-              v-model="gender"
-            />
-            <label for="gender-male">Male</label>
-            <input
-              id="gender-female"
-              type="radio"
-              name="gender"
-              value="female"
-              v-model="gender"
-            />
-            <label for="gender-female">Female</label>
-          </div>
-        </div>
       </div>
-
       <div class="row">
-        <h4>Payment Details</h4>
-        <div class="input-group">
-          <input
-            id="payment-method-card"
-            type="radio"
-            name="payment-method"
-            value="card"
-            v-model="paymentMethod"
-            checked
-          />
-          <label for="payment-method-card">
-            <span><i class="fa fa-cc-visa"></i> Credit Card</span>
-          </label>
-          <input
-            id="payment-method-paypal"
-            type="radio"
-            name="payment-method"
-            value="paypal"
-            v-model="paymentMethod"
-          />
-          <label for="payment-method-paypal">
-            <span><i class="fa fa-cc-paypal"></i> Paypal</span>
-          </label>
-        </div>
-        <div class="input-group input-group-icon">
-          <input type="text" placeholder="Card Number" v-model="cardNumber" />
-          <div class="input-icon">
-            <i class="fa fa-credit-card"></i>
-          </div>
-        </div>
-        <div class="col-half">
-          <div class="input-group input-group-icon">
-            <input type="text" placeholder="Card CVC" v-model="cardCVC" />
-            <div class="input-icon">
-              <i class="fa fa-user"></i>
-            </div>
-          </div>
-        </div>
-        <div class="col-half">
-          <div class="input-group">
-            <select v-model="expirationMonth">
-              <option value="01">01 Jan</option>
-              <option value="02">02 Jan</option>
-              <!-- Add more options as needed -->
-            </select>
-            <select v-model="expirationYear">
-              <option value="2015">2015</option>
-              <option value="2016">2016</option>
-              <!-- Add more options as needed -->
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <h4>Terms and Conditions</h4>
-        <div class="input-group">
-          <input type="checkbox" id="terms" v-model="termsAccepted" />
-          <label for="terms">
-            I accept the terms and conditions for signing up to this service, and hereby confirm I have read the privacy policy.
-          </label>
+        <div class="btn-container">
+          <button type="submit" class="btn-form">CREAR TAREA</button>
         </div>
       </div>
     </form>
@@ -121,30 +42,21 @@
 import { ref } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
+import VueSelect from 'vue-select';
 
 export default {
   components: {
-    VueDatePicker
+    VueDatePicker,
+    VueSelect,
   },
   data() {
     return {
-      fullName: '',
       email: '',
       password: '',
       descripcion: '',
-      dob: {
-        day: '',
-        month: '',
-        year: '',
-      },
-      gender: '',
-      paymentMethod: 'card',
-      cardNumber: '',
-      cardCVC: '',
-      expirationMonth: '',
-      expirationYear: '',
-      termsAccepted: false,
       date: ref(new Date()),
+      selected: '',
+      abc: ['a','b','c','d','e','asdf','bz','ae','32','19','assff'],
     };
   },
   methods: {
@@ -157,10 +69,16 @@ export default {
       return `${day}/${month}/${year} a las ${hours}`;
     }
   },
+  computed: {
+    items() {
+      return this.abc.filter(i => !this.selected.includes(i));
+    }
+  }
 };
 
 </script>
 <style scoped>
+@import "vue-select/dist/vue-select.css";
 /* 64ac15 */
 *,
 *:before,
@@ -183,168 +101,29 @@ input[type="checkbox"] + label:before,
 select option,
 select {
   width: 100%;
-  padding: 1em;
+  padding: 0.4em 1em;
   line-height: 1.4;
-  background-color: #f8f2f9;
+  background-color: #f9f9f9;
   border: 1px solid #e5e5e5;
   border-radius: 3px;
-  -webkit-transition: 0.35s ease-in-out;
-  -moz-transition: 0.35s ease-in-out;
-  -o-transition: 0.35s ease-in-out;
-  transition: 0.35s ease-in-out;
-  transition: all 0.35s ease-in-out;
-}
-textarea {
-  resize: none;
 }
 textarea, input {
-  font-size: 1.2em;
+  font-size: 0.8em;
 }
 textarea:focus, input:focus {
   outline: 0;
-  border-color: #bd8200;
+  border-bottom: #062743 2px solid;
+  transition: 30ms;
 }
-input:focus + .input-icon i {
-  color: #f0a500;
+textarea {
+  resize: vertical;
 }
-input:focus + .input-icon:after {
-  border-right-color: #f0a500;
-}
-input[type="radio"] {
-  display: none;
-}
-input[type="radio"] + label,
-select {
-  display: inline-block;
-  width: 50%;
-  text-align: center;
-  float: left;
-  border-radius: 0;
-}
-input[type="radio"] + label:first-of-type {
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-input[type="radio"] + label:last-of-type {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-input[type="radio"] + label i {
-  padding-right: 0.4em;
-}
-input[type="radio"]:checked + label,
-input:checked + label:before,
-select:focus,
-select:active {
-  background-color: #f0a500;
-  color: #fff;
-  border-color: #bd8200;
-}
-input[type="checkbox"] {
-  display: none;
-}
-input[type="checkbox"] + label {
-  position: relative;
-  display: block;
-  padding-left: 1.6em;
-}
-input[type="checkbox"] + label:before {
-  position: absolute;
-  top: 0.2em;
-  left: 0;
-  display: block;
-  width: 1em;
-  height: 1em;
-  padding: 0;
-  content: "";
-}
-input[type="checkbox"] + label:after {
-  position: absolute;
-  top: 0.45em;
-  left: 0.2em;
-  font-size: 0.8em;
-  color: #fff;
-  opacity: 0;
-  font-family: 'Roboto', Verdana, Geneva, Tahoma, sans-serif;
-  content: "\f00c";
-}
-input:checked + label:after {
-  opacity: 1;
-}
-select {
-  height: 3.4em;
-  line-height: 2;
-}
-select:first-of-type {
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-select:last-of-type {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-select:focus,
-select:active {
-  outline: 0;
-}
-select option {
-  background-color: #f0a500;
-  color: #fff;
-}
-textarea, .input-group {
-  font-family: 'Roboto', Verdana, Geneva, Tahoma, sans-serif;
-  margin-bottom: 1em;
-  zoom: 1;
-}
-.input-group:before,
-.input-group:after {
-  content: "";
-  display: table;
-}
-.input-group:after {
-  clear: both;
-}
-.input-group-icon {
-  position: relative;
-}
-.input-group-icon input {
-  padding-left: 4.4em;
-}
-.input-group-icon .input-icon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 3.4em;
-  height: 3.4em;
-  line-height: 3.4em;
-  text-align: center;
-  pointer-events: none;
-}
-.input-group-icon .input-icon:after {
-  position: absolute;
-  top: 0.6em;
-  bottom: 0.6em;
-  left: 3.4em;
-  display: block;
-  border-right: 1px solid #e5e5e5;
-  content: "";
-  -webkit-transition: 0.35s ease-in-out;
-  -moz-transition: 0.35s ease-in-out;
-  -o-transition: 0.35s ease-in-out;
-  transition: 0.35s ease-in-out;
-  transition: all 0.35s ease-in-out;
-}
-.input-group-icon .input-icon i {
-  -webkit-transition: 0.35s ease-in-out;
-  -moz-transition: 0.35s ease-in-out;
-  -o-transition: 0.35s ease-in-out;
-  transition: 0.35s ease-in-out;
-  transition: all 0.35s ease-in-out;
-}
+
 .container {
-  padding: 1em 3em 2em 3em;
+  padding: 0em 3em 2em 3em;
   margin: 0em auto;
   width: 100%;
+  height: auto;
   background-color: #f9f9f9;
   border-radius: 4.2px;
   box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.05);
@@ -371,19 +150,78 @@ textarea, .input-group {
 .col-third {
   padding-right: 10px;
   float: left;
-  width: 33.33333333%;
+  width: 33.3333333333%;
 }
 .col-third:last-of-type {
   padding-right: 0;
 }
-@media only screen and (max-width: 540px) {
+.btn-form {
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 3px 0 rgb(0, 0, 0, 0.2);
+  background-color: #062743;
+  width: auto;
+  height: auto;
+  margin-top: 4em;
+  padding: 1rem;
+  color: #f9f9f9;
+}
+.btn-form:hover {
+  background-color: #C4FFDD;
+  color: #113A5D;
+  transition: 200ms all;
+}
+.btn-form:active {
+  background-color: #113A5D;
+  color: #f9f9f9;
+  transition: 20ms;
+}
+
+h4, span, .btn-container {
+  padding-top: .4em;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.row h4 {
+  font-size: 1em;
+}
+.row input {
+  font-size: 0.9em;
+  height: auto;
+}
+
+.v-select, textarea, input, h4 {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.v-select {
+  font-size: 1em;
+}
+
+.v-select .vs__dropdown-menu {
+  max-height: calc(100vh - 20px); /* Ajusta el height del dropdown dejando 20px antes del final de la página */
+  overflow-y: auto; /* Habilita el scrollbar vertical */
+  background-color: #f9f9f9; /* Opcional: Cambia el color de fondo */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Opcional: Sombra para el dropdown */
+  border-radius: 5px;
+}
+/* Estilo para el campo de entrada */
+
+@media (max-width: 590px) {
   .col-half {
     width: 100%;
     padding-right: 0;
   }
-}
+  .row h4{
+    font-size: 0.9em;
+  }
+  .v-select, .row input, textarea{
+    font-size: 0.8em;
+  }
 
-h4, span {
-  font-family: 'Roboto', Verdana, Geneva, Tahoma, sans-serif;
 }
 </style>

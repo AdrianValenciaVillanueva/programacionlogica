@@ -1,5 +1,4 @@
 <template>
-    <div class="page-wrapper">
         <ul>
             <li v-for="(tab, index) in tabs"
                 :key="index"
@@ -8,7 +7,6 @@
                 {{ tab }}
             </li>
         </ul>
-    </div>
 </template>
 
 <script>
@@ -45,7 +43,7 @@ ul {
     display: flex;
     list-style-type: none;
     width: 100%;
-    height: 10vh;
+    height: auto;
     justify-content: flex-start;
     box-shadow: 0px 1px 15px 2px rgb(0, 0, 0, 0.2);
     align-items: center;
@@ -53,19 +51,37 @@ ul {
 
 li {
     list-style-type: none;
-    padding: 0 50px;
+    padding: 15px 50px;
     height: 100%;
+    width: 100%;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 0.8rem;
     display: flex;
     cursor: pointer;
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s ease;
     font-family: 'Roboto', Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 15px;
+}
+li:hover{
+    background-color: #b9b9b9;
 }
 
 li.active {
+    transition: 300ms;
     border-bottom: 0.5vh solid black;
+    border-radius: 0;
+    background-color: #f8f8f8;
+}
+@media (max-width: 590px) {
+    ul {
+        padding: 5px 0;
+        flex-direction: column;
+    }
+    li {
+        font-size: 0.7rem;
+        padding: 10px;
+    }
 }
 </style>

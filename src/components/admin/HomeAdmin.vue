@@ -2,26 +2,34 @@
     <div class="page-wrapper">
         <nav class="navbar-admin" id="navbar-admin" role="navigation">
                 <div class="team-and-id-obj">
-                    <ImagenConLabel :img="require('@/assets/team.png')" :texto="equipo"/>
-                    <ImagenConLabel :img="require('@/assets/id.png')" :texto="codigo"/>
-                    <ImagenConLabel :img="require('@/assets/profile.png')" :texto="admin" id="profile" />
+
+                    <div class="imgtext">
+                        <img src="./../../assets/id.png" alt="codigo">
+                        <span>Id</span>
+                    </div>
+
+                    <div class="imgtext">
+                        <img src="./../../assets/team.png" alt="equipo">
+                        <span>Equipo</span>
+                    </div>
+
+                    <div class="imgtext">
+                        <img src="./../../assets/profile.png" alt="admin">
+                        <span>Usuario</span>
+                    </div>
+
                 </div>
         </nav>
 
         
         <main >
-            <SimpleTab @selected-tab="getTab"/>
+            <SimpleTab @selected-tab="getTab" class="tab"/>
 
             <div class="tab-result-content" id="tab-result-content">
                 <TaskForm v-if="currentTab === 'CREAR TAREAS'" class="form"/>
                 <div v-else-if="currentTab === 'VER TAREAS'">
                     <h1 style="font-family: 'Roboto';
-                    width: fit-content;
-                    font-weight: lighter;
-                    text-align: center;
-                    margin-top: 20vh;
                     box-shadow: 5px 2px 14px 5px rgb(0, 0, 0, 0.3);
-                    padding: 15px;
                     ">Aun no hago este jeje >:3</h1>
                 </div>
             </div>
@@ -31,13 +39,12 @@
 
 <script>
 import TaskForm from './TaskForm.vue';
-import ImagenConLabel from './utils/ImagenConLabel.vue';
+//import ImagenConLabel from './utils/ImagenConLabel.vue';
 import SimpleTab from './utils/SimpleTab.vue';
 
 export default {
     name: 'HomeAdmin',
     components: {
-        ImagenConLabel,
         SimpleTab,
         TaskForm
     }, 
@@ -72,7 +79,6 @@ export default {
 
 .page-wrapper {
     width: 100%;
-    height: inherit;
     background-color: #f9f9f9;
 } 
 .navbar-admin {
@@ -96,20 +102,65 @@ export default {
 }
 .team-and-id-obj  {
     display: flex;
-    width: 12vh;
+    width: 5rem;
     gap: 5em;
     align-items: center;
     justify-content: center;
 }
 main {
     margin-top: 15vh;
+    width: 100%;
+    overflow: hidden;
+    height: calc(100% - 14.7vh); /* Ajusta la altura para ocupar el resto de la pantalla */
+
 }
 
 .tab-result-content {
-    width: inherit;
+    width: 100%;
     height: 100%;
 }
 .form {
     margin-top: 1.7vh;
+}
+.tab {
+    
+}
+.imgtext {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 1em;
+    float: left;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    gap: 12px;
+}
+.imgtext img {
+    width: 2em;
+    height: 2em;
+}
+@media (max-width: 590px) {
+    main {
+        margin-top: 5px;
+    }
+    .tab-result-content h4{
+        font-size: 5px;
+    }
+    .navbar-admin{
+        top: 5;
+        position: relative;
+        padding: 2em;
+        height: auto;
+    }
+    .team-and-id-obj {
+        flex-flow: column;
+        font-size: 0.8rem;
+        gap: 15px;
+    }
+    .imgtext {
+        gap: 10px
+    }
+    .imgtext img {
+        left: 0;
+    }
 }
 </style>
