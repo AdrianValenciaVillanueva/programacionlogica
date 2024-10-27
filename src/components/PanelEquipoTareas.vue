@@ -1,61 +1,106 @@
 <template>
   <div class="PanelTareasEquipoPendientes">
     <div class="Titulos">
-      <h2> <span>Equipo:</span> nombre del equipo</h2>
+      <h2><span>Equipo:</span> nombre del equipo</h2>
       <h2><span>Usuario:</span> usuario</h2>
     </div>
 
     <div class="BotonesTipoTareas">
-      <button class="BotonesTipo">Tareas Pendientes</button>
-      <button class="BotonesTipo">Tareas Hechas</button>
+      <button 
+        class="BotonesTipo" 
+        @click="mostrarTareasPendientes = true"
+        :class="{ active: mostrarTareasPendientes }" 
+      >
+        Tareas Pendientes
+      </button>
+      <button 
+        class="BotonesTipo" 
+        @click="mostrarTareasPendientes = false"
+        :class="{ active: !mostrarTareasPendientes }" 
+      >
+        Tareas Hechas
+      </button>
     </div>
 
     <div class="PanelTareas">
-      <!-- =================== TARJETAS DE TAREAS =================== -->
-      <div class="TareaPendiente">
-        <div class="TituloTarea">
-          <h2>Título: Tarea 1</h2>
-        </div>
-
-        <div class="PanelContenedor">
-          <div class="InfoTarea">
-            <div class="Fechas">
-              <p><span>Fecha Publicación:</span>  DD/MM/AA</p>
-              <p><span>Fecha Límite de entrega:</span> DD/MM/AA</p>
-            </div>
-
-            <div class="DescripcionTarea">
-              <h3>Descripción:</h3>
-              <div class="textoDescripccion">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus sed eaque inventore perferendis.</p>
-                
+      <!-- Transición para el contenido -->
+      <div v-if="mostrarTareasPendientes" key="pendientes" class="mostrarTareasPendientes">
+        <div class="TareaPendiente">
+          <div class="TituloTarea">
+            <h2>Título: Tarea 1</h2>
+          </div>
+          <div class="PanelContenedor">
+            <div class="InfoTarea">
+              <div class="Fechas">
+                <p><span>Fecha Publicación:</span> DD/MM/AA</p>
+                <p><span>Fecha Límite de entrega:</span> DD/MM/AA</p>
+              </div>
+              <div class="DescripcionTarea">
+                <h3>Descripción:</h3>
+                <div class="textoDescripcion">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus sed eaque inventore perferendis.</p>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div class="Botones">
-            
-            <button class="boton "> 
-              <svg xmlns="http://www.w3.org/2000/svg" width=auto height=25px fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
-                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
-              </svg>
+            <div class="Botones">
+              <button class="boton">
+                <!-- Icono de descarga -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="25px" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+                  <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
+                </svg>
               </button>
-            <button class="boton ">
-              <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-              <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
-              </svg>
-            </button>
+              <button class="boton">
+                <!-- Icono de check -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <!-- =========================================================== -->
+
+      <div v-else key="hechas" class="mostrarTareasHechas">
+        <div class="TareasHechas">
+          <div class="TituloTarea">
+            <h2>Título: Tarea 1</h2>
+          </div>
+          <div class="PanelContenedor">
+            <div class="InfoTarea">
+              <div class="Fechas">
+                <p><span>Fecha Publicación:</span> DD/MM/AA</p>
+                <p><span>Fecha Límite de entrega:</span> DD/MM/AA</p>
+                <p><span>Fecha entregada:</span> DD/MM/AA</p>
+              </div>
+              <div class="DescripcionTarea">
+                <h3>Descripción:</h3>
+                <div class="textoDescripcion">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus sed eaque inventore perferendis.</p>
+                </div>
+              </div>
+            </div>
+            <div class="Botones">
+              <button class="boton">
+                <!-- Icono de descarga -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="25px" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+                  <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'PanelEquipoTareas',
+  data() {
+    return {
+      mostrarTareasPendientes: true, // Estado inicial para mostrar tareas pendientes
+    };
+  },
 };
 </script>
 
@@ -63,6 +108,17 @@ export default {
 *{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.mostrarTareasPendientes, .mostrarTareasHechas{
+/* background-color: cyan; */
+  justify-content: center;
+  /* align-items: center; */
+  /* margin: 0; */
+  display: flex;
+  overflow-x: scroll;
+  gap: 16px; /* Espacio entre tareas */
+}
+
 
 .PanelTareasEquipoPendientes {
   width: 90%;
@@ -106,13 +162,18 @@ export default {
   cursor: pointer;
 }
 
+/*para el boton activo*/
+.BotonesTipo.active {
+  background-color: #007bff; /* Color de fondo diferente para el botón activo */
+  color: white; /* Color del texto para el botón activo */
+}
 .PanelTareas {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.TareaPendiente {
+.TareaPendiente, .TareasHechas {
   width: 80%;
   padding: 20px;
   padding-top: 0 ;
@@ -215,4 +276,25 @@ font-weight: bold;
   padding: 3px;
   border-radius: 12px;
 }
+
+
+
+/*ANIMACION DE FADE-IN/OUT*/
+/* .fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter, .fade-leave-to  .fade-leave-active in versions <2.1.8  {
+  opacity: 0;
+} 
+
+*/
+
+
+.slide-enter-active, .slide-leave-active {
+  transition: transform 0.5s ease;
+}
+.slide-enter, .slide-leave-to {
+  transform: translateX(100%); /* Desliza desde la derecha */
+}
+
 </style>
