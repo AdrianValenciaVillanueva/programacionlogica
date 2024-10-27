@@ -1,9 +1,11 @@
 <template>
-  <div class="PanelTareasEquipoPendientes">
+  <body>
     <div class="Titulos">
       <h2><span>Equipo:</span> nombre del equipo</h2>
       <h2><span>Usuario:</span> usuario</h2>
     </div>
+  <div class="PanelTareasEquipoPendientes">
+
 
     <div class="BotonesTipoTareas">
       <button 
@@ -92,6 +94,8 @@
       </div>
     </div>
   </div>
+  </body>
+      
 </template>
 
 <script>
@@ -107,6 +111,12 @@ export default {
 <style scoped>
 *{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  
+}
+body{
+  background-color: #003b6f;
+  margin: 0; /* Elimina el margen predeterminado */
+  padding: 0; /* Elimina cualquier relleno predeterminado */
 }
 
 .mostrarTareasPendientes, .mostrarTareasHechas{
@@ -115,14 +125,15 @@ export default {
   /* align-items: center; */
   /* margin: 0; */
   display: flex;
-  overflow-x: scroll;
+  overflow-x: hidden;
   gap: 16px; /* Espacio entre tareas */
 }
 
 
 .PanelTareasEquipoPendientes {
-  width: 90%;
-  max-width: 600px;
+  width: 95%;
+  min-height: 600px;
+  /* max-width: 1080px; */
   margin: auto;
   padding: 20px;
   background-color: #f4f4f4;
@@ -131,6 +142,9 @@ export default {
 }
 
 .Titulos {
+  background-color: #003b6f;
+  margin: 0;
+  
   display: flex;
   text-align: center;
   margin-bottom: 20px;
@@ -148,24 +162,26 @@ export default {
 .BotonesTipoTareas {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 0 30%;
   margin-bottom: 20px;
 }
 
 .BotonesTipo {
   padding: 10px 20px;
   font-size: 14px;
-  color: white;
-  background-color: #004b8d;
+  background:none;
+  color: black;
+  /* background-color: #004b8d; */
   border: none;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   cursor: pointer;
 }
 
 /*para el boton activo*/
 .BotonesTipo.active {
-  background-color: #007bff; /* Color de fondo diferente para el botón activo */
-  color: white; /* Color del texto para el botón activo */
+  /* background-color: #007bff;  */
+  border-bottom: 1px solid#003b6f;
+  color: black;
 }
 .PanelTareas {
   display: flex;
@@ -210,6 +226,7 @@ export default {
 
 .DescripcionTarea {
   margin-top: 10px;
+  min-height: 150px;
 }
 
 .DescripcionTarea h3 {
