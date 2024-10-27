@@ -5,7 +5,7 @@
                 <h1>Tareas publicadas</h1>
                 <img 
                 src="../../assets/drop.png" 
-                alt=""
+                alt="dropdown"
                 :class="{rotated: isRotated}"
                 />
             </div>
@@ -53,7 +53,8 @@ export default {
     font-family: Helvetica, sans-serif;
 }
 .content-container {
-    width: 60%;
+    width: 54%;
+    padding: 0 4em 0em 4em;
     border: 1px solid green;
     height: 100%;
 }
@@ -77,6 +78,9 @@ export default {
 }
 .titulo img.rotated {
     transform: rotate(180deg);
+}
+.titulo:hover {
+    background-color: #f2f2f2;
 }
 .titulo:after {
     content: '';
