@@ -9,18 +9,19 @@
                 :class="{rotated: isRotated}"
                 />
             </div>
-            <ul class="dropdownitems">
-                <li>item 1</li>
-                <li>item 2</li>
-                <li>item 3</li>
-            </ul>
+            <ItemTarea v-if="this.isRotated === true"/>
         </div>
     </div>
 </template>
 
 <script>
+import ItemTarea from './utils/ItemTarea.vue';
+
 export default {
     name: 'SeeTasks',
+    components: {
+        ItemTarea,
+    },
     data() {
         return {
             tasks: {
@@ -95,6 +96,8 @@ export default {
 .dropdownitems {
     margin-top: 20px;
     list-style: none;
+    height: 100%;
+    width: 100%;
+    transition: all 200ms;
 }
-
 </style>
