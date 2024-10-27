@@ -1,113 +1,121 @@
 <template>
   <body>
-    <div class="Titulos">
-      <div class="apTitulo">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
-</svg>
-        <h2>Equipo</h2>
+    <div class="Titulos" role="banner" aria-label="Título del panel">
+      <div class="apTitulo" aria-labelledby="equipoTitulo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+        </svg>
+        <h2 id="equipoTitulo">Equipo</h2>
       </div>
-      <div class="apTitulo">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-</svg>
-<h2>Usuario</h2>
-</div>
-</div>
+      <div class="apTitulo" aria-labelledby="usuarioTitulo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+        </svg>
+        <h2 id="usuarioTitulo">Usuario</h2>
+        <button class="logOutButton" aria-label="Cerrar sesión" @click="logout">
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16" aria-hidden="true">
+    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+  </svg>
+  <span >Log out</span>
+</button>
 
-  <div class="PanelTareasEquipoPendientes">
-
-
-    <div class="BotonesTipoTareas">
-      <button 
-        class="BotonesTipo" 
-        @click="mostrarTareasPendientes = true"
-        :class="{ active: mostrarTareasPendientes }" 
-      >
-        Tareas Pendientes
-      </button>
-      <button 
-        class="BotonesTipo" 
-        @click="mostrarTareasPendientes = false"
-        :class="{ active: !mostrarTareasPendientes }" 
-      >
-        Tareas Hechas
-      </button>
+      </div>
     </div>
 
-    <div class="PanelTareas">
-      <!-- Transición para el contenido -->
-      <div v-if="mostrarTareasPendientes" key="pendientes" class="mostrarTareasPendientes">
-        <div class="TareaPendiente">
-          <div class="TituloTarea">
-            <h2>Título: Tarea 1</h2>
-          </div>
-          <div class="PanelContenedor">
-            <div class="InfoTarea">
-              <div class="Fechas">
-                <p><span>Fecha Publicación:</span> DD/MM/AA</p>
-                <p><span>Fecha Límite de entrega:</span> DD/MM/AA</p>
-              </div>
-              <div class="DescripcionTarea">
-                <h3>Descripción:</h3>
-                <div class="textoDescripcion">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus sed eaque inventore perferendis.</p>
+    <div class="PanelTareasEquipoPendientes" role="region" aria-labelledby="panelTareasTitulo">
+      <h2 id="panelTareasTitulo" class="visually-hidden">Panel de Tareas</h2>
+
+      <div class="BotonesTipoTareas" role="group" aria-label="Tipo de tareas">
+        <button 
+          class="BotonesTipo" 
+          @click="mostrarTareasPendientes = true"
+          :class="{ active: mostrarTareasPendientes }" 
+          aria-pressed="true"
+        >
+          Tareas Pendientes
+        </button>
+        <button 
+          class="BotonesTipo" 
+          @click="mostrarTareasPendientes = false"
+          :class="{ active: !mostrarTareasPendientes }" 
+          aria-pressed="false"
+        >
+          Tareas Hechas
+        </button>
+      </div>
+
+      <div class="PanelTareas">
+        <!-- Transición para el contenido -->
+        <div v-if="mostrarTareasPendientes" key="pendientes" class="mostrarTareasPendientes" role="tabpanel" aria-labelledby="tareasPendientes">
+          <h3 id="tareasPendientes" class="visually-hidden">Tareas Pendientes</h3>
+          <div class="TareaPendiente" role="article" aria-labelledby="tarea1Titulo">
+            <div class="TituloTarea" id="tarea1Titulo">
+              <h2>Título: Tarea 1</h2>
+            </div>
+            <div class="PanelContenedor">
+              <div class="InfoTarea">
+                <div class="Fechas" role="doc-info">
+                  <p><span>Fecha Publicación:</span> DD/MM/AA</p>
+                  <p><span>Fecha Límite de entrega:</span> DD/MM/AA</p>
+                </div>
+                <div class="DescripcionTarea">
+                  <h3>Descripción:</h3>
+                  <div class="textoDescripcion">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus sed eaque inventore perferendis.</p>
+                  </div>
                 </div>
               </div>
+              <div class="Botones">
+                <button class="boton" aria-label="Descargar tarea">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="40px" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
+                  </svg>
+                </button>
+                <button class="boton" aria-label="Marcar tarea como hecha">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
+                  </svg>
+                </button>
+              </div>
             </div>
-            <div class="Botones">
-              <button class="boton">
-                <!-- Icono de descarga -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="25px" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
-                  <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
-                </svg>
-              </button>
-              <button class="boton">
-                <!-- Icono de check -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
-                </svg>
-              </button>
+          </div>
+        </div>
+
+        <div v-else key="hechas" class="mostrarTareasHechas" role="tabpanel" aria-labelledby="tareasHechas">
+          <h3 id="tareasHechas" class="visually-hidden">Tareas Hechas</h3>
+          <div class="TareasHechas" role="article" aria-labelledby="tareaHecha1Titulo">
+            <div class="TituloTarea" id="tareaHecha1Titulo">
+              <h2>Título: Tarea 1</h2>
+            </div>
+            <div class="PanelContenedor">
+              <div class="InfoTarea">
+                <div class="Fechas" role="doc-info">
+                  <p><span>Fecha Publicación:</span> DD/MM/AA</p>
+                  <p><span>Fecha Límite de entrega:</span> DD/MM/AA</p>
+                  <p><span>Fecha entregada:</span> DD/MM/AA</p>
+                </div>
+                <div class="DescripcionTarea">
+                  <h3>Descripción:</h3>
+                  <div class="textoDescripcion">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus sed eaque inventore perferendis.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="Botones">
+                <button class="boton" aria-label="Descargar tarea">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="25px" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div v-else key="hechas" class="mostrarTareasHechas">
-        <div class="TareasHechas">
-          <div class="TituloTarea">
-            <h2>Título: Tarea 1</h2>
-          </div>
-          <div class="PanelContenedor">
-            <div class="InfoTarea">
-              <div class="Fechas">
-                <p><span>Fecha Publicación:</span> DD/MM/AA</p>
-                <p><span>Fecha Límite de entrega:</span> DD/MM/AA</p>
-                <p><span>Fecha entregada:</span> DD/MM/AA</p>
-              </div>
-              <div class="DescripcionTarea">
-                <h3>Descripción:</h3>
-                <div class="textoDescripcion">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus sed eaque inventore perferendis.</p>
-                </div>
-              </div>
-            </div>
-            <div class="Botones">
-              <button class="boton">
-                <!-- Icono de descarga -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="25px" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
-                  <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
   </body>
-      
 </template>
+
 
 <script>
 export default {
@@ -167,6 +175,7 @@ body{
 gap: 22%;
   /* border-bottom:1px solid #003b6f; */
 }
+
 .apTitulo{
 display: flex;
   gap: 10px ;
@@ -193,21 +202,70 @@ button{
 .BotonesTipo {
   padding: 10px 20px;
   font-size: 18px;
-  background:none;
+  background: none;
   color: black;
-  /* background-color: #004b8d; */
   border: none;
-  /* border-radius: 5px; */
   cursor: pointer;
   font-weight: bold;
+  position: relative;
 }
 
-/*para el boton activo*/
-.BotonesTipo.active {
-  /* background-color: #007bff;  */
-  border-bottom: 1px solid#003b6f;
-  color: black;
+.BotonesTipo:not(.active)::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  border-bottom: 2px solid #003b6f;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
 }
+
+.BotonesTipo:not(.active):hover::before {
+  transform: scaleX(1);
+}
+
+.BotonesTipo.active {
+  color: black;
+  border-bottom: 2px solid #003b6f;
+  cursor: default;
+
+}
+
+/**=== */
+
+
+.logOutButton {
+  /* padding: 10px 20px; */
+  font-size: 18px;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+}
+
+.logOutButton::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  border-bottom: 1px solid #ffffff;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.logOutButton:hover::before {
+  transform: scaleX(1);
+}
+
+
 .PanelTareas {
   display: flex;
   flex-direction: column;
@@ -280,10 +338,11 @@ button{
 }
 
 .boton {
-  width: 70px;
-  height: 35px;
+ 
+  width: 100px;
+  height: 50px; 
   font-size: 14px;
-  background-color: #004b8d;
+  background-color: #003b6f;
   color: white;
   border: none;
   border-radius: 5px;
@@ -291,8 +350,9 @@ button{
 }
 
 .boton:hover {
-  background-color: #003b6f;
+  background-color: #011f3a;
 }
+
 
 .TituloTarea{
   margin: 0 auto;
