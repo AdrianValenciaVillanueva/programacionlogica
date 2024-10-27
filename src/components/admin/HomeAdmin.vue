@@ -27,11 +27,8 @@
 
             <div class="tab-result-content" id="tab-result-content">
                 <TaskForm v-if="currentTab === 'CREAR TAREAS'" class="form"/>
-                <div v-else-if="currentTab === 'VER TAREAS'">
-                    <h1 style="font-family: 'Roboto';
-                    box-shadow: 5px 2px 14px 5px rgb(0, 0, 0, 0.3);
-                    ">Aun no hago este jeje >:3</h1>
-                </div>
+                <SeeTasks v-else-if="currentTab === 'VER TAREAS'">
+                </SeeTasks>
             </div>
         </main>
     </div>
@@ -40,13 +37,15 @@
 <script>
 import TaskForm from './TaskForm.vue';
 //import ImagenConLabel from './utils/ImagenConLabel.vue';
+import SeeTasks from './SeeTasks.vue';
 import SimpleTab from './utils/SimpleTab.vue';
 
 export default {
     name: 'HomeAdmin',
     components: {
         SimpleTab,
-        TaskForm
+        TaskForm,
+        SeeTasks
     }, 
     data() {
         return {
@@ -121,9 +120,6 @@ main {
 }
 .form {
     margin-top: 1.7vh;
-}
-.tab {
-    
 }
 .imgtext {
     display: flex;
