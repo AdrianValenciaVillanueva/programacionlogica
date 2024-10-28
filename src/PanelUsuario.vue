@@ -1,19 +1,19 @@
 <template>
-    <CrearEComp/>
-</template>
-  
-<script>
-  import CrearEComp from './components/CrearEComp.vue';
+    <PanelEquipoTareas/>
+  </template>
+  <script>
+import PanelEquipoTareas from './components/PanelEquipoTareas.vue';
+
   export default {
-    name: 'CrearEquipo',
+    name: 'PanelUsuario',
     components: {
-      CrearEComp
+        PanelEquipoTareas
     }
   }
-</script>
+  </script>
   
   <style>
-  #CrearEquipo {
+  #CrearCuenta {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

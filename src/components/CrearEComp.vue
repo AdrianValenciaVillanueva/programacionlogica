@@ -35,7 +35,7 @@
                 />
             </div>
             <div class="ContenedorBot">
-            <button class="botonCon" @click="enviar">Crear usuario</button>
+            <button class="botonCon" @click="enviar">Crear equipo</button>
             </div>
         </div>
         <div class="redireccion">
