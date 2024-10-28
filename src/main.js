@@ -1,4 +1,7 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './IniciarSesion.vue'; // Este es el contenedor principal
+import router from './router'; // Importa el router
 
-createApp(App).mount('#app')
+const app = createApp(App);
+app.use(router);
+app.mount('#app');
