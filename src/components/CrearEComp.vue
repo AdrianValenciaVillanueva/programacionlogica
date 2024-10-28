@@ -111,6 +111,7 @@ h1 {
     width: 650px;
     padding: 30px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    margin: 0 auto;
 }
 
 .textfields {
@@ -170,7 +171,7 @@ h1 {
     display: flex;
     width: 590px;
     justify-content: space-between;
-    margin-top: 15px;
+    margin: 0 auto;
 }
 
 .redireccion-item {

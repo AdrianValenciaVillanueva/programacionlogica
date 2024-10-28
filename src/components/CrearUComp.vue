@@ -123,6 +123,7 @@ h1 {
     height: auto; /* Cambiado para ajustarse al contenido */
     padding: 30px; /* Añadido un padding uniforme */
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); /* Sombra más fuerte */
+    margin: 0 auto;
 }
 
 .textfields {
@@ -182,7 +183,7 @@ h1 {
     display: flex;
     width: 590px;
     justify-content: space-between;
-    margin-top: 0px; /* Espacio arriba de los botones */
+    margin: 0 auto;
 }
 
 .redireccion-item {
