@@ -3,11 +3,11 @@
         <h1>Crear Equipo</h1>
         <div class="rectangulo">
             <div class="textfields">
-                <label for="admin">Nombre de administrador:</label>
+                <label for="username">Nombre de administrador:</label>
                 <input
                     type="text"
-                    id="admin"
-                    v-model="admin"
+                    id="username"
+                    v-model="username"
                 />
             </div>
             <div class="textfields">
@@ -57,11 +57,14 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'CrearEquipo',
   data() {
     return {
-      admin: '',
+      username: '',
+      admin: true,
       equipo: '',
       contrasenia: '',
       confirmar: '',
@@ -69,17 +72,38 @@ export default {
     };
   },
   methods: {
-    enviar() {
+    async enviar() {
       // Verificar si las contraseñas coinciden
       if (this.contrasenia !== this.confirmar) {
         this.errorMessage = 'Las contraseñas no coinciden. Por favor, verifica e intenta de nuevo.';
-      } else if (this.admin && this.equipo && this.contrasenia && this.confirmar) {
-        // Aquí podrías hacer una llamada a la API para registrar el equipo
-        console.log('Creando equipo con:', this.admin, this.equipo, this.contrasenia);
-        // Redirigir o continuar con el flujo de registro
-        this.errorMessage = ''; // Limpiar mensaje de error si todo es correcto
-      } else {
+        return;
+      }
+
+      // Verificar si todos los campos están completos
+      if (!this.username || !this.equipo || !this.contrasenia || !this.confirmar) {
         this.errorMessage = 'Por favor, completa todos los campos.';
+        return;
+      }
+
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/users/', {
+          username: this.username,
+          password: this.contrasenia,
+          is_admin: this.admin,
+          id_team: this.equipo
+        });
+        console.log('Usuario creado:', response.data);
+        // redirigir a la página de inicio de sesión
+        this.$router.push('/iniciar-sesion');
+        this.errorMessage = ''; // Limpiar mensaje de error si todo es correcto
+      } catch (error) {
+        if (error.response) {
+          console.error('Error al crear el usuario:', error.response.data);
+          this.errorMessage = 'Error al crear el usuario: ' + JSON.stringify(error.response.data);
+        } else {
+          console.error('Error al crear el usuario:', error.message);
+          this.errorMessage = 'Error al crear el usuario: ' + error.message;
+        }
       }
     }
   }

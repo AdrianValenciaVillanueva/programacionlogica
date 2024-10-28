@@ -40,112 +40,131 @@
     </div>
 </template>
 
-  
 <script>
-  export default {
-    name: 'InicioComp',
-    data() {
-      return {
-        nombre: '',        
-        contrasenia: ''    
-      };
-    },
-    methods: {
-        enviar() {
-    if (this.nombre && this.contrasenia) {
-      // Aquí incluirías la llamada a la API o verificación
-      // Suponiendo que es incorrecto:
-      if (!this.checkCredentials(this.nombre, this.contrasenia)) {
-        this.errorMessage = 'Nombre de usuario o contraseña incorrectos.';
-      } else {
-        this.errorMessage = ''; // Limpiar error si es correcto
+import axios from 'axios';
+
+export default {
+  name: 'InicioComp',
+  data() {
+    return {
+      nombre: '',
+      contrasenia: '',
+      errorMessage: ''
+    };
+  },
+  methods: {
+    async enviar() {
+      // Verificar si todos los campos están completos
+      if (!this.nombre || !this.contrasenia) {
+        this.errorMessage = 'Por favor, completa todos los campos.';
+        return;
       }
-    } else {
-      this.errorMessage = 'Por favor, completa todos los campos.';
+
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/login/', {
+          username: this.nombre,
+          password: this.contrasenia
+        });
+        console.log('Inicio de sesión exitoso:', response.data);
+        //redirigir
+        this.$router.push('/panel-usuario');
+        this.errorMessage = ''; // Limpiar mensaje de error si todo es correcto
+        // Aquí puedes redirigir al usuario a otra página o guardar el token de sesión
+      } catch (error) {
+        if (error.response) {
+          console.error('Error al iniciar sesión:', error.response.data);
+          this.errorMessage = 'Error al iniciar sesión: ' + JSON.stringify(error.response.data.detail);
+        } else {
+          console.error('Error al iniciar sesión:', error.message);
+          this.errorMessage = 'Error al iniciar sesión: ' + error.message;
+        }
+      }
     }
-  },
-  checkCredentials(nombre, contrasenia) {
-    // Simular una validación, solo por ejemplo
-    return nombre === 'usuario' && contrasenia === 'contraseña123';
-  },
-}
   }
+};
 </script>
-  
+
 <style scoped>
 * {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.principal{
+.principal {
     justify-items: center;
-  }
+}
+
 h1 {
-    font-size: 3rem; 
-    text-align: center; 
+    font-size: 3rem;
+    text-align: center;
     color: #062743;
 }
+
 .rectangulo {
-    display: flex;                /* Habilita el uso de flexbox */
-    flex-direction: column;      /* Apila los elementos verticalmente */
-    justify-content: center;      /* Centra el contenido verticalmente */
-    align-items: center;          /* Centra el contenido horizontalmente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border-radius: 45px;
     background-color: #F7F4F4;
     width: 650px;
     height: 400px;
-    padding-left: 30px;          
-    padding-right: 30px;    
-    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.3); /* Sombra ligera */
-    margin:0 auto; /* Centra el rectángulo */
+    padding-left: 30px;
+    padding-right: 30px;
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.3);
+    margin: 0 auto;
 }
+
 .textfields {
-    display: flex;            
-    flex-direction: column;      
-    margin-bottom: 20px; /* Espacio entre cada grupo de textfields */  
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
-.textfields input{
+
+.textfields input {
     border-radius: 25px;
     border: 2px solid;
     border-color: #113A5D;
     width: 590px;
     height: 60px;
-    font-size: 1.5rem;  
+    font-size: 1.5rem;
     outline: none;
     padding-right: 15px;
     padding-left: 15px;
-    }
+}
+
 .textfields label {
     color: #113A5D;
     text-align: justify;
-    margin-bottom: 5px; 
+    margin-bottom: 5px;
     font-size: 2rem;
 }
+
 .textfields input:focus {
-    border-color: #C4FFDD; 
+    border-color: #C4FFDD;
     box-shadow: 0 0 5px #C4FFDD;
     outline: none;
 }
 
-.ContenedorBot{
+.ContenedorBot {
     display: flex;
-    justify-content: center; 
-    margin-top: 10px; 
+    justify-content: center;
+    margin-top: 10px;
 }
-.botonCon{
+
+.botonCon {
     text-align: center;
-    border:none;
+    border: none;
     background-color: #113A5D;
     font-size: 1.5rem;
     color: #FFFFFF;
-    height:70px;
+    height: 70px;
     width: 250px;
     border-radius: 10px;
-    cursor: pointer; 
-    transition: background-color 0.3s ease; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.botonCon:hover{
+.botonCon:hover {
     background-color: #062743;
 }
 
@@ -159,7 +178,7 @@ h1 {
 
 .redireccion-item {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
 }
 
@@ -172,7 +191,7 @@ h1 {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease;
 }
 
 .redireccion button:hover {
@@ -185,6 +204,4 @@ h1 {
     font-size: 1.1rem;
     text-align: center;
 }
-
-
 </style>
