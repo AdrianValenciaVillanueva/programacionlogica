@@ -48,30 +48,35 @@
         <!-- Transición para el contenido -->
         <div v-if="mostrarTareasPendientes" key="pendientes" class="mostrarTareasPendientes" role="tabpanel" aria-labelledby="tareasPendientes">
           <h3 id="tareasPendientes" class="visually-hidden">Tareas Pendientes</h3>
-          <div class="TareaPendiente" role="article" aria-labelledby="tarea1Titulo">
-            <div class="TituloTarea" id="tarea1Titulo">
-              <h2>Título: Tarea 1</h2>
+          
+          <div v-for="tarea in tareasPendientes" :key="tarea.id" class="TareaPendiente" role="article" :aria-labelledby="'tarea' + tarea.id + 'Titulo'">
+            <div class="TituloTarea" :id="'tarea' + tarea.id + 'Titulo'">
+              <h2>Título: {{ tarea.title }}</h2>
             </div>
             <div class="PanelContenedor">
               <div class="InfoTarea">
                 <div class="Fechas" role="doc-info">
-                  <p><span>Fecha Publicación:</span> DD/MM/AA</p>
-                  <p><span>Fecha Límite de entrega:</span> DD/MM/AA</p>
+                  <p><span>Fecha Publicación:</span> {{ tarea.created_at }}</p>
+                  <p><span>Fecha Límite de entrega:</span> {{ tarea.deadline }}</p>
                 </div>
                 <div class="DescripcionTarea">
                   <h3>Descripción:</h3>
                   <div class="textoDescripcion">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus sed eaque inventore perferendis.</p>
+                    <p>{{ tarea.description }}</p>
                   </div>
                 </div>
               </div>
+
               <div class="Botones">
                 <button class="boton" aria-label="Descargar tarea">
                   <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="40px" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
                   </svg>
                 </button>
-                <button class="boton" aria-label="Marcar tarea como hecha">
+                <button class="boton" aria-label="Marcar tarea como hecha" @click="marcarTareaComoHecha(tarea.id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
+                  </svg>
                   <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
                   </svg>
@@ -79,25 +84,27 @@
               </div>
             </div>
           </div>
+
         </div>
 
         <div v-else key="hechas" class="mostrarTareasHechas" role="tabpanel" aria-labelledby="tareasHechas">
           <h3 id="tareasHechas" class="visually-hidden">Tareas Hechas</h3>
-          <div class="TareasHechas" role="article" aria-labelledby="tareaHecha1Titulo">
-            <div class="TituloTarea" id="tareaHecha1Titulo">
-              <h2>Título: Tarea 1</h2>
+          
+          <div v-for="tarea in tareasHechas" :key="tarea._id" class="TareaHecha" role="article" :aria-labelledby="'tareaHecha' + tarea._id + 'Titulo'">
+            <div class="TituloTarea" :id="'tareaHecha' + tarea._id + 'Titulo'">
+              <h2>Título: {{ tarea.title }}</h2>
             </div>
             <div class="PanelContenedor">
               <div class="InfoTarea">
                 <div class="Fechas" role="doc-info">
-                  <p><span>Fecha Publicación:</span> DD/MM/AA</p>
-                  <p><span>Fecha Límite de entrega:</span> DD/MM/AA</p>
-                  <p><span>Fecha entregada:</span> DD/MM/AA</p>
+                  <p><span>Fecha Publicación:</span> {{ new Date(tarea.created_at).toLocaleDateString() }}</p>
+                  <p><span>Fecha Límite de entrega:</span> {{ new Date(tarea.deadline).toLocaleDateString() }}</p>
+                  <p><span>Fecha entregada:</span> {{ new Date(tarea.updated_at).toLocaleDateString() }}</p>
                 </div>
                 <div class="DescripcionTarea">
                   <h3>Descripción:</h3>
                   <div class="textoDescripcion">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus sed eaque inventore perferendis.</p>
+                    <p>{{ tarea.description }}</p>
                   </div>
                 </div>
               </div>
@@ -118,12 +125,60 @@
 
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
       mostrarTareasPendientes: true, // Estado inicial para mostrar tareas pendientes
+      tareasPendientes: [],
+      tareasHechas: [],
+      user_id:12345,
     };
   },
+
+  methods: {
+    async obtenerTareas() {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/tasks/`);
+        const tareas = response.data;
+        this.tareasPendientes = tareas.filter(tarea => tarea.status === 'pending');
+        this.tareasHechas = tareas.filter(tarea => tarea.status === 'completed');
+        console.log('Tareas obtenidas:', tareas);
+      } catch (error) {
+        if (error.response) {
+          console.error('Error al obtener las tareas:', error.response.data);
+          this.errorMessage = 'Error al obtener las tareas: ' + JSON.stringify(error.response.data.detail);
+        } else {
+          console.error('Error al obtener las tareas:', error.message);
+          this.errorMessage = 'Error al obtener las tareas: ' + error.message;
+        }
+      }
+    },
+    
+    async marcarTareaComoHecha(task_id) {
+      try {
+        const response = await axios.put(`http://127.0.0.1:8000/tasks/${task_id}/completed`);
+        console.log('Tarea marcada como hecha:', response.data);
+        // Actualizar la lista de tareas después de marcar como hecha
+        this.obtenerTareas();
+      } catch (error) {
+        if (error.response) {
+          console.error('Error al marcar la tarea como hecha:', error.response.data);
+          this.errorMessage = 'Error al marcar la tarea como hecha: ' + JSON.stringify(error.response.data.detail);
+        } else {
+          console.error('Error al marcar la tarea como hecha:', error.message);
+          this.errorMessage = 'Error al marcar la tarea como hecha: ' + error.message;
+        }
+      }
+    },
+    
+  },
+
+  
+  mounted() {
+    const username = 'nombre_usuario'; // Reemplaza esto con el nombre de usuario real
+    this.obtenerTareas(username);
+  }
 };
 </script>
 
@@ -140,13 +195,14 @@ body{
 }
 
 .mostrarTareasPendientes, .mostrarTareasHechas{
-/* background-color: cyan; */
   justify-content: center;
-  /* align-items: center; */
-  /* margin: 0; */
   display: flex;
+  /* colocar en columna */
+  flex-direction: column;
   overflow-x: hidden;
+  align-content: center;
   gap: 16px; /* Espacio entre tareas */
+  margin: 0 auto;
 }
 
 
@@ -270,9 +326,11 @@ button{
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+
 }
 
-.TareaPendiente, .TareasHechas {
+.TareaPendiente, .TareaHecha {
   width: 80%;
   padding: 20px;
   padding-top: 0 ;
@@ -280,13 +338,14 @@ button{
   border-radius: 10px;
   margin-bottom: 20px;
   box-shadow: 3px 3px #113A5D;
-
+  margin: 0 auto;
 }
 
 .PanelContenedor {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  
 }
 
 .InfoTarea {
@@ -305,6 +364,7 @@ button{
   margin: 5px 0;
   font-size: 14px;
   color: #666;
+  text-align: left  ;
 }
 
 .DescripcionTarea {
