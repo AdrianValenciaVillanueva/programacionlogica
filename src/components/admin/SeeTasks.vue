@@ -47,7 +47,6 @@ export default {
     margin: 0;
 }
 .page-wrapper {
-    width: 100%;
     display: flex;
     background-color: #f9f9f9;
     justify-content: center;
@@ -55,17 +54,19 @@ export default {
 }
 .content-container {
     margin-top: 2em;
-    width: 54%;
+    width: 59%;
     padding: 0 4em 0em 4em;
-    height: 100%;
+    gap: 20px;
 }
 .titulo {
     display: flex;
     position: relative;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 15px;
     cursor: pointer;
+    padding: 15px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 4px;
 }
 .titulo h1 {
     font-size: 1.8rem;
@@ -89,14 +90,11 @@ export default {
     left: 0;
     width: 100%;
     height: 1px;
-    transform: scaleY(-5%);
-    box-shadow: 2px 1px 5px 1px rgb(6, 39, 67);
 }
 
 .dropdownitems {
     margin-top: 20px;
     list-style: none;
-    height: 100%;
     width: 100%;
     transition: all 200ms;
 }

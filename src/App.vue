@@ -10,9 +10,7 @@ export default {
 </script>
 
 <template>
-  <body>
     <HomeAdmin/>
-  </body>
 </template>
 
 

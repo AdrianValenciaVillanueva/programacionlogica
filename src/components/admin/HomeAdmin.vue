@@ -77,7 +77,6 @@ export default {
 }
 
 .page-wrapper {
-    width: 100%;
     margin-top: -8px;
     background-color: #f9f9f9;
 } 
@@ -104,15 +103,11 @@ export default {
 }
 main {
     margin-top: 15vh;
-    width: 100%;
     overflow: hidden;
-    height: calc(100% - 14.7vh); /* Ajusta la altura para ocupar el resto de la pantalla */
-
 }
 
 .tab-result-content {
-    width: 100%;
-    height: 100%;
+    height: auto;
 }
 .form {
     margin-top: 1.7vh;

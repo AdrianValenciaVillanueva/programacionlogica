@@ -23,8 +23,8 @@
         <div class="col-mitad">
 
             <div class="select-users">
-                <SelectUser/>
-                <SelectUser/>
+                <SelectUser :msg="'usuarios asignados'" class="select" :options="[]"/>
+                <SelectUser :msg="'no entregados'" class="select" :options="[]"/>
             </div>
         </div>
 
@@ -49,25 +49,23 @@ export default {
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 .tarea-container {
-    width: 100%;
-    height: auto;
+    width: auto;
+    padding: 15px;
     background-color: #f9f9f9;
     display: flex;
+    border-radius: 5px;
     justify-content: left;
-    align-items: center;
+    align-items: stretch;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 .col-mitad {
     width: 50%;
-    height: 100%;
 }
 .row {
     width: 100%;
-    height: auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
 }
 .texto {
-    font-size: 0.7rem;
+    font-size: 1em;
     text-align: justify;    
 }
 .twocolumns {
@@ -80,15 +78,23 @@ export default {
 }
 .twocolumns span {
     text-align: right;
+    color: #878787;
 }
 .twocolumns b, .twocolumns span {
-    font-size: 0.9rem;
+    font-size: 1.2em;
 }
 .select-users {
     display: flex;
     flex-direction: column;
-    justify-content: right;
-    align-items: center;
+    width: 80%;
+    height: 100%;
+    gap: 2.5rem;
+    justify-content: center;
+    align-items:center;
+    margin: 0 auto;
+    float: inline-end;
 }
-
+.select {
+    width: 60%;
+}
 </style>

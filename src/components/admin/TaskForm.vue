@@ -123,7 +123,6 @@ textarea {
   padding: 0em 3em 2em 3em;
   margin: 0em auto;
   width: 100%;
-  height: auto;
   background-color: #f9f9f9;
   border-radius: 4.2px;
   box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.05);
