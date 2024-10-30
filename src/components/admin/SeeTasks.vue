@@ -1,7 +1,7 @@
 <template>
     <div class="page-wrapper">
         <div class="content-container" id="content-container">
-            <TitleAccordeon />
+            <TitleAccordeon :tasks="tasks"/>
         </div>
     </div>
 </template>
@@ -18,18 +18,7 @@ export default {
     },
     data() {
         return {
-            tareas: [
-                {titulo: 'Tarea 1'},
-                {titulo: 'Tarea 2'},
-                {titulo: 'Tarea 3'},
-                {titulo: 'Tarea 4'} 
-            ],
-            tasks: {
-                all: [],
-                pending: [],
-                sent: [],
-
-            },
+            tasks: [],
             isRotated: false,
         }
     },
@@ -97,7 +86,7 @@ export default {
     overflow: hidden;
     max-height: 0;
     position: relative;
-    transition: max-height 650ms;
+    transition: max-height 450ms;
 }
 .content-container:target .content{
     max-height: 20rem;

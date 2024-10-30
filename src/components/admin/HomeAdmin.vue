@@ -5,17 +5,17 @@
 
                     <div class="imgtext">
                         <img src="./../../assets/id.png" alt="codigo">
-                        <span>Id</span>
+                        <span>{{ user.id }}</span>
                     </div>
 
                     <div class="imgtext">
                         <img src="./../../assets/team.png" alt="equipo">
-                        <span>Equipo</span>
+                        <span>{{ user.id_team }}</span>
                     </div>
 
                     <div class="imgtext">
                         <img src="./../../assets/profile.png" alt="admin">
-                        <span>Usuario</span>
+                        <span>{{user.username}}</span>
                     </div>
 
                 </div>
@@ -49,17 +49,14 @@ export default {
     }, 
     data() {
         return {
-            admin: 'admin',
-            codigo: 'codigo',
-            equipo: 'equipo',
+            user: {
+                id: String,
+                username: String,
+                is_admin: Boolean,
+                id_team: String,
+            },
             currentTab: ''
         };
-    },
-    user: {
-        username: String,
-        password: String,
-        is_admin: Boolean,
-        id_team: String,
     },
     methods: {
         getTab(tab) {

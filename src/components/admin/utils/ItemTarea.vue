@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="twocolumns">
                     <b>Fecha de publicacion:</b>
-                    <span>{{ task.date }}</span>
+                    <span>{{ task.created_at }}</span>
                 </div>
                 <div class="twocolumns">
                     <b>Fecha de Entrega:</b>
@@ -40,11 +40,16 @@ export default {
     },
     data() {
         return {
-            task: {
-                description: '',
-                date: '',
-                deadline: '',
-            }
+         task:   {
+         "title": '', 
+         "description": '', 
+         "user_id": '', 
+         "team_id": '', 
+         "created_at": '', 
+         "updated_at": '', 
+         "deadline": '', 
+         "status": '',
+  },
         }
     },
 };

@@ -2,8 +2,8 @@
   <div class="content-container">
     <a class="titulo" @click="toggleDropDown">
       <div class="info-task" id="info-task">
-        <span>{{ titulo }}</span>
-        <span>{{ fechaLimite }}</span>
+        <span>{{ task.title }}</span>
+        <span>{{ task.deadline }}</span>
       </div>
       <img
         src="../../../assets/drop.png"
@@ -13,9 +13,7 @@
     </a>
     <div class="content" :class="{ expanded: isExpanded }">
       <ItemTarea
-        v-for="(task, index) in tasks"
         :task="task"
-        :options="['Pepe', 'Mau', 'Juan']"
         :key="index"
       />
     </div>
@@ -31,14 +29,17 @@ export default {
     ItemTarea
   },
   data() {
-    return {
-        tasks: [
-            {
-            title: '',
-            description: '',
-            date: '',
-            deadline: '' 
-        }],
+    return { 
+      task:   {
+         "title": '', 
+         "description": '', 
+         "user_id": '', 
+         "team_id": '', 
+         "created_at": '', 
+         "updated_at": '', 
+         "deadline": '', 
+         "status": '',
+  },
       isRotated: false,
       isExpanded: false,
     };
@@ -97,7 +98,7 @@ export default {
   width: 100%;
   max-height: 0;
   position: relative;
-  transition: max-height 650ms;
+  transition: max-height 450ms;
 }
 
 .content.expanded {

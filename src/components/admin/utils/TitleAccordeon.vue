@@ -8,9 +8,14 @@
         :class="{ rotated: isRotated }"
       />
     </a>
-    <div class="content" :class="{ expanded: isExpanded }">
-        <TaskAccordeon />
+
+    <div v-if="tasks.length > 0">
+      <div v-for="task in tasks" :key="task.id" class="content" :class="{ expanded: isExpanded }">
+          <TaskAccordeon />
+      </div>
     </div>
+
+    <div v-else><h2>No hay tareas</h2></div>
   </div>
 </template>
 
@@ -24,12 +29,11 @@ export default {
   },
   data() {
     return {
-      tasks: [
-        { titulo: "Tarea 1" },
-        { titulo: "Tarea 2" },
-        { titulo: "Tarea 3" },
-        { titulo: "Tarea 4" },
-      ],
+      tasks: {
+        type: [],
+        required: true,
+      }
+      ,
       isRotated: false,
       isExpanded: false,
     };
@@ -68,11 +72,12 @@ export default {
 .titulo img {
   width: 1.8rem;
   height: 2.7rem;
+  transform: rotate(90deg);
   transition: transform 0.3s ease;
 }
 
 .titulo img.rotated {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 
 .titulo:hover {
@@ -85,7 +90,7 @@ export default {
   width: 100%;
   height: auto;
   position: relative;
-  transition: max-height 650ms;
+  transition: max-height 450ms;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 .content a {
