@@ -1,29 +1,29 @@
 <template>
     <div class="page-wrapper">
-        <div class="content-container">
-            <div class="titulo" @click="toggleDropDown">
-                <h1>Tareas publicadas</h1>
-                <img 
-                src="../../assets/drop.png" 
-                alt="dropdown"
-                :class="{rotated: isRotated}"
-                />
-            </div>
-            <ItemTarea v-if="this.isRotated === true"/>
+        <div class="content-container" id="content-container">
+            <TitleAccordeon />
         </div>
     </div>
 </template>
 
 <script>
-import ItemTarea from './utils/ItemTarea.vue';
+// import ItemTarea from './utils/ItemTarea.vue';
+import TitleAccordeon from './utils/TitleAccordeon.vue';
 
 export default {
-    name: 'SeeTasks',
+    // name: 'SeeTasks',
     components: {
-        ItemTarea,
+        TitleAccordeon,
+        // ItemTarea,
     },
     data() {
         return {
+            tareas: [
+                {titulo: 'Tarea 1'},
+                {titulo: 'Tarea 2'},
+                {titulo: 'Tarea 3'},
+                {titulo: 'Tarea 4'} 
+            ],
             tasks: {
                 all: [],
                 pending: [],
@@ -53,15 +53,17 @@ export default {
     font-family: Helvetica, sans-serif;
 }
 .content-container {
-    margin-top: 2em;
-    width: 59%;
-    padding: 0 4em 0em 4em;
+    display: block;
+    margin: 0 auto;
+    width: 75%;
+    padding: 2em 4em 0em 4em;
     gap: 20px;
 }
 .titulo {
     display: flex;
     position: relative;
     align-items: center;
+    text-decoration: none;
     justify-content: space-between;
     cursor: pointer;
     padding: 15px;
@@ -90,6 +92,15 @@ export default {
     left: 0;
     width: 100%;
     height: 1px;
+}
+.content {
+    overflow: hidden;
+    max-height: 0;
+    position: relative;
+    transition: max-height 650ms;
+}
+.content-container:target .content{
+    max-height: 20rem;
 }
 
 .dropdownitems {

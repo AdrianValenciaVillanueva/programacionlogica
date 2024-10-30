@@ -4,18 +4,18 @@
         <div class="col-mitad">
             <div class="row">
                 <p class="texto">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi quos harum commodi, asperiores, laborum saepe quod ab facilis fugiat omnis alias mollitia cupiditate possimus doloribus dignissimos suscipit animi, voluptas fuga.
+                    {{task.description}}
                 </p>
             </div>
 
             <div class="row">
                 <div class="twocolumns">
                     <b>Fecha de publicacion:</b>
-                    <span>DD/MM/Y</span>
+                    <span>{{ task.date }}</span>
                 </div>
                 <div class="twocolumns">
                     <b>Fecha de Entrega:</b>
-                    <span>DD/MM/Y</span>
+                    <span>{{ task.deadline }}</span>
                 </div>
             </div>
         </div>
@@ -40,6 +40,11 @@ export default {
     },
     data() {
         return {
+            task: {
+                description: '',
+                date: '',
+                deadline: '',
+            }
         }
     },
 };
