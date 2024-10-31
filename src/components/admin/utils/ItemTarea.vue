@@ -23,8 +23,8 @@
         <div class="col-mitad">
 
             <div class="select-users">
-                <SelectUser :msg="'usuarios asignados'" class="select" :options="[]"/>
-                <SelectUser :msg="'no entregados'" class="select" :options="[]"/>
+                <button>usuarios asignados</button>
+                <button>no entregados</button>
             </div>
         </div>
 
@@ -32,11 +32,9 @@
 </template>
 
 <script>
-import SelectUser from './SelectUser.vue';
 export default {
     name: 'ItemTarea', 
     components: {
-        SelectUser
     },
     data() {
         return {
@@ -96,8 +94,8 @@ export default {
 .select-users {
     display: flex;
     flex-direction: column;
-    width: 80%;
-    height: 100%;
+    width: 5rem;
+    height: 4rem;
     gap: 2.5rem;
     justify-content: center;
     align-items:center;

@@ -14,7 +14,6 @@
     <div class="content" :class="{ expanded: isExpanded }">
       <ItemTarea
         :task="task"
-        :key="index"
       />
     </div>
   </div>
