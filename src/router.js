@@ -15,8 +15,8 @@ const routes = [
   { path: '/panel-usuario', component: PanelUsuario, name:'panel-usuario'},
   { path: '/panel-admin/:userId', component: HomeAdmin, name:'panel-admin',
     children: [
-      {path: '/ver-tareas:/teamId', component: SeeTasks, name:'ver-tareas'},
-      { path: '/crear-tareas/:teamId', component: TaskForm, name:'crear-tareas'},
+      {path: 'ver-tareas:/teamId', component: SeeTasks, name:'ver-tareas'},
+      { path: 'crear-tareas/:teamId', component: TaskForm, name:'crear-tareas'},
     ],
   },
   // { path: '/ver-tareas:/teamId', component: SeeTasks, name:'ver-tareas'},

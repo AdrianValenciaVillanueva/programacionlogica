@@ -4,11 +4,11 @@
       <div class="row">
         <div class="col-half">
           <h4>TITULO</h4>
-            <input type="text" v-model="fullName" />
+            <input type="text" v-model="title" />
         </div>
         <div class="col-half">
           <h4>ASIGNACION DE USUARIOS</h4>
-              <VueSelect multiple v-model="selected" :options="items" :closeOnSelect="false"/>
+              <VueSelect multiple v-model="teamUsers" :options="items" :closeOnSelect="false"/>
         </div>
       </div>
 
@@ -16,7 +16,7 @@
         <div class="col-half">
           <h4>DESCRIPCIÓN</h4>
           <div class="input-group">
-            <textarea name="desc-task" id="desc-task"></textarea>
+            <textarea name="desc-task" id="desc-task" v-model="descripcion"></textarea>
           </div>
         </div>
         <div class="col-half">
@@ -51,9 +51,11 @@ export default {
   },
   data() {
     return {
+      title: '',
       email: '',
       password: '',
       descripcion: '',
+      teamUsers: [],
       date: ref(new Date()),
       selected: '',
       abc: ['a','b','c','d','e','asdf','bz','ae','32','19','assff'],
@@ -72,8 +74,13 @@ export default {
   computed: {
     items() {
       return this.abc.filter(i => !this.selected.includes(i));
-    }
-  }
+    },
+  },
+  mounted() {
+    let teamId = this.$route.params.teamId;
+    console.log(teamId);
+    
+  },
 };
 
 </script>
