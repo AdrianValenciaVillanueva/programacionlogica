@@ -65,6 +65,7 @@ li {
 }
 li:hover{
     background-color: #b9b9b9;
+    user-select: none;
 }
 
 li.active {

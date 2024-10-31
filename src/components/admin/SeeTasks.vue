@@ -44,7 +44,7 @@ export default {
 .content-container {
     display: block;
     margin: 0 auto;
-    width: 75%;
+    width: 85%;
     padding: 2em 4em 0em 4em;
     gap: 20px;
 }

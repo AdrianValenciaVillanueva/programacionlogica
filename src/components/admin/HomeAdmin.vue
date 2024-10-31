@@ -37,6 +37,7 @@
 <script>
 import TaskForm from './TaskForm.vue';
 //import ImagenConLabel from './utils/ImagenConLabel.vue';
+import axios from 'axios';
 import SeeTasks from './SeeTasks.vue';
 import SimpleTab from './utils/SimpleTab.vue';
 
@@ -62,7 +63,20 @@ export default {
         getTab(tab) {
             this.currentTab = tab;
         }
-    }
+    },
+    mounted() {
+        console.log("id del user cargado =",this.$route.params.userId);
+
+        const userId = this.$route.params.userId;
+
+        axios.get(`http://127.0.0.1:8000/users/${userId}`)
+        .then(response => {
+            this.user = response.data;
+        })
+        .catch(error => {
+            console.error(`error obteniendo usuario admin ${error}`);
+        });
+    },
 }
 </script>
 

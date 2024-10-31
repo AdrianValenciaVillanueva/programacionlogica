@@ -15,7 +15,9 @@
       </div>
     </div>
 
-    <div v-else><h2>No hay tareas</h2></div>
+    <div v-else class="content" :class="{expanded: isExpanded}">
+      <h3 style="padding: 15px; float: left;">No hay tareas</h3>
+    </div>
   </div>
 </template>
 
@@ -55,6 +57,7 @@ export default {
 .titulo {
   display: flex;
   position: relative;
+  color: black;
   align-items: center;
   text-decoration: none;
   justify-content: space-between;
@@ -62,6 +65,9 @@ export default {
   padding: 15px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 4px;
+}
+.titulo:hover {
+  user-select: none;
 }
 
 .titulo h1 {

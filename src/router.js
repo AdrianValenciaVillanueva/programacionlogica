@@ -10,8 +10,8 @@ const routes = [
   { path: '/iniciar-sesion', component: IniciarComp }, 
   { path: '/crear-cuenta', component: CrearCuenta },
   { path: '/crear-equipo', component: CrearEquipo },
-  { path: '/panel-usuario', component: PanelUsuario},
-  { path: '/panel-admin', component: HomeAdmin}
+  { path: '/panel-usuario', component: PanelUsuario, name:'panel-usuario'},
+  { path: '/panel-admin/:userId', component: HomeAdmin, name:'panel-admin'},
 ];
 
 const router = createRouter({

@@ -69,12 +69,14 @@ export default {
         //redirigir
         const id = response.data.user_id;
         console.log(id);
-        const is_admin = await axios.get(`http://127.0.0.1:8000/users/${id}`).data.is_admin;
-        console.log('es administrador? =',is_admin);
+
+        const responseUser = await axios.get(`http://127.0.0.1:8000/users/${id}`);
+        const user = responseUser.data;
+        console.log('user logeado:',user);
         
 
-        const pagina = is_admin? '/panel-admin': '/panel-usuario';
-        this.$router.push(pagina);
+        const pagina = user.is_admin? 'panel-admin': 'panel-usuario';
+        this.$router.push({name: pagina, params: {userId: id}});
         this.errorMessage = ''; // Limpiar mensaje de error si todo es correcto
         // Aquí puedes redirigir al usuario a otra página o guardar el token de sesión
       } catch (error) {
