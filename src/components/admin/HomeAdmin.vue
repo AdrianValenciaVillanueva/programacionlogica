@@ -25,28 +25,30 @@
         <main >
             <SimpleTab @selected-tab="getTab" class="tab"/>
 
-            <div class="tab-result-content" id="tab-result-content">
+            <router-view class="tab-result-content" id="tab-result-content"/>
+
+            <!-- <div class="tab-result-content" id="tab-result-content">
                 <TaskForm v-if="currentTab === 'CREAR TAREAS'" class="form"/>
                 <SeeTasks v-else-if="currentTab === 'VER TAREAS'">
                 </SeeTasks>
-            </div>
+            </div> -->
         </main>
     </div>
 </template>
 
 <script>
-import TaskForm from './TaskForm.vue';
+// import TaskForm from './TaskForm.vue';
 //import ImagenConLabel from './utils/ImagenConLabel.vue';
 import axios from 'axios';
-import SeeTasks from './SeeTasks.vue';
+// import SeeTasks from './SeeTasks.vue';
 import SimpleTab from './utils/SimpleTab.vue';
 
 export default {
     name: 'HomeAdmin',
     components: {
         SimpleTab,
-        TaskForm,
-        SeeTasks
+        // TaskForm,
+        // SeeTasks
     }, 
     data() {
         return {
@@ -61,7 +63,16 @@ export default {
     },
     methods: {
         getTab(tab) {
-            this.currentTab = tab;
+            if (tab === 'CREAR TAREAS') {
+                this.$router.push(
+                    {name: 'crear-tareas', 
+                    params: {teamId: this.user.id_team}});
+            }
+            else if(tab === 'VER TAREAS') { 
+                this.$router.push({
+                    name: 'ver-tareas', 
+                    params: {teamId: this.user.id_team}});
+            }
         }
     },
     mounted() {

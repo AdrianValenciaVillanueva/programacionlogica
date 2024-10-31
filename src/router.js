@@ -4,6 +4,8 @@ import CrearCuenta from './CrearCuenta.vue';
 import CrearEquipo from './CrearEquipo.vue';
 import PanelUsuario from './PanelUsuario.vue';
 import HomeAdmin from './components/admin/HomeAdmin.vue';
+import SeeTasks from './components/admin/SeeTasks.vue';
+import TaskForm from './components/admin/TaskForm.vue';
 
 const routes = [
   { path: '/', redirect: '/iniciar-sesion'},
@@ -11,7 +13,14 @@ const routes = [
   { path: '/crear-cuenta', component: CrearCuenta },
   { path: '/crear-equipo', component: CrearEquipo },
   { path: '/panel-usuario', component: PanelUsuario, name:'panel-usuario'},
-  { path: '/panel-admin/:userId', component: HomeAdmin, name:'panel-admin'},
+  { path: '/panel-admin/:userId', component: HomeAdmin, name:'panel-admin',
+    children: [
+      {path: '/ver-tareas:/teamId', component: SeeTasks, name:'ver-tareas'},
+      { path: '/crear-tareas/:teamId', component: TaskForm, name:'crear-tareas'},
+    ],
+  },
+  // { path: '/ver-tareas:/teamId', component: SeeTasks, name:'ver-tareas'},
+  // { path: '/crear-tareas/:teamId', component: TaskForm, name:'crear-tareas'},
 ];
 
 const router = createRouter({
