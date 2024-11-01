@@ -61,15 +61,20 @@ export default {
   text-decoration: none;
   justify-content: space-between;
   cursor: pointer;
+  color: black;
   width: 100%;
   height: auto;
-  padding: 15px 0 15px 0;
+  padding: 15px;
   border-radius: 4px;
 }
 
 .titulo h1 {
   font-size: 1.8rem;
   text-align: left;
+}
+
+.titulo {
+  font-size: 0.8rem;
 }
 
 .titulo img {
@@ -93,11 +98,18 @@ export default {
   width: 100%;
   max-height: 0;
   position: relative;
-  transition: max-height 450ms;
+  transition: max-height 650ms;
 }
 
 .content.expanded {
   max-height: 50rem;
+  transition: all 0.5s;
+  width: 100%;
+}
+.info-task {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: left;
   width: 100%;
 }
 </style>

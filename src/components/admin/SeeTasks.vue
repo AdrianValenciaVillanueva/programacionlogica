@@ -99,7 +99,7 @@ export default {
     overflow: hidden;
     max-height: 0;
     position: relative;
-    transition: max-height 450ms;
+    transition: max-height 650ms;
 }
 .content-container:target .content{
     max-height: 20rem;

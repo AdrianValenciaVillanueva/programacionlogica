@@ -71,11 +71,13 @@ export default {
 }
 .texto {
     font-size: 1em;
+    color: black;
     text-align: justify;    
 }
 .twocolumns {
     display: grid;
     width: 100%;
+    text-align: left;
     grid-template-columns: 1fr 1fr;
 }
 .twocolumns:nth-child(1) {
@@ -86,7 +88,10 @@ export default {
     color: #878787;
 }
 .twocolumns b, .twocolumns span {
-    font-size: 1.2em;
+    font-size: 0.8em;
+}
+.twocolumns b {
+    color: black;
 }
 .select-users {
     display: flex;
