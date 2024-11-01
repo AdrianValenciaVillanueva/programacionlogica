@@ -71,8 +71,10 @@ export default {
 }
 .texto {
     font-size: 1em;
+    font-weight: lighter;
     color: black;
     text-align: justify;    
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .twocolumns {
     display: grid;
