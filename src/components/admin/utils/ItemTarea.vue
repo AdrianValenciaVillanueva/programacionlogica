@@ -37,19 +37,16 @@ export default {
     components: {
     },
     data() {
-        return {
-         task:   {
-         "title": '', 
-         "description": '', 
-         "user_id": '', 
-         "team_id": '', 
-         "created_at": '', 
-         "updated_at": '', 
-         "deadline": '', 
-         "status": '',
-  },
+        return { 
+
         }
     },
+    props: {
+        task: {
+            type: Object,
+            required: true
+        }
+    }
 };
 </script>
 <style scoped>

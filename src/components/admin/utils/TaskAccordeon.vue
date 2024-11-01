@@ -29,19 +29,15 @@ export default {
   },
   data() {
     return { 
-      task:   {
-         "title": '', 
-         "description": '', 
-         "user_id": '', 
-         "team_id": '', 
-         "created_at": '', 
-         "updated_at": '', 
-         "deadline": '', 
-         "status": '',
-  },
       isRotated: false,
       isExpanded: false,
     };
+  },
+  props: {
+    task: {
+      type: Object,
+      required: true
+    }
   },
   methods: {
     toggleDropDown() {

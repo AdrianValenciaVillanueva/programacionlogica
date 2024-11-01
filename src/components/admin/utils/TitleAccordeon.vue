@@ -31,10 +31,15 @@ export default {
   },
   data() {
     return {
-      tasks: [] ,
       isRotated: false,
       isExpanded: false,
     };
+  },
+  props: {
+    tasks: {
+      type: Array,
+      required: true
+    }
   },
   methods: {
     toggleDropDown() {
