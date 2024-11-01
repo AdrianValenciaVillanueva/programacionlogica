@@ -8,6 +8,7 @@
 
 <script>
 // import ItemTarea from './utils/ItemTarea.vue';
+import axios from 'axios';
 import TitleAccordeon from './utils/TitleAccordeon.vue';
 
 export default {
@@ -26,7 +27,19 @@ export default {
         toggleDropDown() {
             this.isRotated = !this.isRotated;
         },
-    }
+    },
+    mounted() {
+        axios.get(`http://127.0.0.1:8000/tasks`)
+        .then(response => {
+            this.tasks = response.data;
+            console.log('tareas publicadas', this.tasks);
+            
+        })
+        .catch(error => {
+            console.error(`ocurrio un error durante la obtencion de tareas`, error);
+            
+        });
+    },
 };
 
 </script>

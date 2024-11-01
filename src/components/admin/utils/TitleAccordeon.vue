@@ -31,11 +31,7 @@ export default {
   },
   data() {
     return {
-      tasks: {
-        type: [],
-        required: true,
-      }
-      ,
+      tasks: [] ,
       isRotated: false,
       isExpanded: false,
     };

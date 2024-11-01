@@ -1,14 +1,24 @@
 <template>
   <div class="container">
-    <form>
+    <form @submit.prevent="createTask">
       <div class="row">
         <div class="col-half">
           <h4>TITULO</h4>
-            <input type="text" v-model="title" />
+          <input type="text" v-model="title" />
         </div>
         <div class="col-half">
           <h4>ASIGNACION DE USUARIOS</h4>
-              <VueSelect multiple v-model="teamUsers" :options="items" :closeOnSelect="false"/>
+          <VueSelect 
+            multiple 
+            v-model="usersSelected" 
+            label="username"
+            :reduce="option => option.id"
+            :autoscroll="true"
+            :clearable="true"
+            :options="users" 
+            :closeOnSelect="false"
+            placeholder="Selecciona usuarios"
+          />
         </div>
       </div>
 
@@ -16,18 +26,17 @@
         <div class="col-half">
           <h4>DESCRIPCIÓN</h4>
           <div class="input-group">
-            <textarea name="desc-task" id="desc-task" v-model="descripcion"></textarea>
+            <textarea name="desc-task" id="desc-task" v-model="description"></textarea>
           </div>
         </div>
         <div class="col-half">
           <h4>FECHA LIMITE DE ENTREGA</h4>
           <div class="input-group">
-            <!-- Poner datepicker aqui -->
-              <VueDatePicker v-model="date" :format="format" :min-date="new Date()" teleport-center/>
+            <VueDatePicker v-model="deadline" :format="format" :min-date="new Date()" teleport-center />
           </div>
         </div>
-
       </div>
+      
       <div class="row">
         <div class="btn-container">
           <button type="submit" class="btn-form">CREAR TAREA</button>
@@ -38,11 +47,11 @@
 </template>
 
 <script>
-
 import { ref } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import VueSelect from 'vue-select';
+import axios from 'axios';
 
 export default {
   components: {
@@ -52,37 +61,100 @@ export default {
   data() {
     return {
       title: '',
-      email: '',
-      password: '',
-      descripcion: '',
-      teamUsers: [],
-      date: ref(new Date()),
-      selected: '',
-      abc: ['a','b','c','d','e','asdf','bz','ae','32','19','assff'],
+      description: '',
+      usersSelected: [],
+      users: [],
+      deadline: ref(new Date()),
     };
   },
   methods: {
-    format(date){
-      const day = date.getDate();
-      const month = date.getMonth();
+    format(date) {
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
       const year = date.getFullYear();
-      const hours = `${date.getHours()}:${date.getMinutes()}`
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      
+      return `${day}/${month}/${year} a las ${hours}:${minutes}`;
+    },
+    createTask() {
+      if (!this.validateForm()) {
+        console.error("Formulario no válido");
+        return;
+      }
+      // const taskData = {
+      //   title: this.title,
+      //   description: this.description,
+      //   users: this.usersSelected,
+      //   dueDate: this.date,
+      // };
+      this.usersSelected.forEach( id => {
+        axios.post('http://127.0.0.1:8000/tasks',
+          {
+            "title": this.title,
+            "description": this.description,
+            "user_id": id,
+            "team_id": this.$route.params.teamId,
+            "created_at": new Date(),
+            "updated_at": new Date(),
+            "deadline": this.deadline,
+            "status": "pending"
+          }
+        )
+        .then(response => {
+          console.log(`tarea subida`,response);
+        })
+        .catch(error => {
+          console.error(`Hubo un error subiendo tareas ${error}`);
+        });
+      });
 
-      return `${day}/${month}/${year} a las ${hours}`;
-    }
-  },
-  computed: {
-    items() {
-      return this.abc.filter(i => !this.selected.includes(i));
+      console.log('TAREA SUBIDA A TODOS LOS USUARIOS');
+
+      // axios.post('http://127.0.0.1:8000/tasks', taskData)
+      //   .then(response => {
+      //     console.log("Tarea creada con éxito:", response.data);
+      //   })
+      //   .catch(error => {
+      //     console.error("Error al crear la tarea:", error);
+      //   });
+    },
+    validateForm() {
+      return (
+        this.title.trim() !== '' &&
+        this.description.trim() !== '' &&
+        this.deadline &&
+        this.usersSelected.length > 0
+      );
     },
   },
+  computed: {
+    filteredUsers() {
+      // Filtrar los usuarios para que solo incluya aquellos que no están seleccionados
+      console.log("Calculando filteredUsers...");
+      const filtered = this.users.filter(
+        user => !this.usersSelected.some(selected => selected.id === user.id)
+      );
+      console.log("Usuarios disponibles después de filtrar:", filtered);
+      return filtered;
+    }
+  },
   mounted() {
-    let teamId = this.$route.params.teamId;
+    const teamId = this.$route.params.teamId;
     console.log(teamId);
-    
+
+    axios.get(`http://127.0.0.1:8000/users/team/${teamId}`)
+      .then(response => {
+        const id = this.$route.params.userId;
+        this.users = response.data.filter(d => !d.is_admin && d.id !== id);
+        console.log(this.users);
+        
+      })
+      .catch(error => {
+        console.error(`Error obteniendo usuarios del equipo: ${error}`);
+      });
   },
 };
-
 </script>
 <style scoped>
 @import "vue-select/dist/vue-select.css";
