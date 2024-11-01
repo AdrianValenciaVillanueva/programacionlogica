@@ -23,8 +23,8 @@
         <div class="col-mitad">
 
             <div class="select-users">
-                <button>usuarios asignados</button>
-                <button>no entregados</button>
+                <button class="btn-form">usuarios asignados</button>
+                <button class="btn-form">no entregados</button>
             </div>
         </div>
 
@@ -96,15 +96,37 @@ export default {
 .select-users {
     display: flex;
     flex-direction: column;
-    width: 5rem;
-    height: 4rem;
+    height: 100%;
+    border: red 1px solid;
     gap: 2.5rem;
+    width: 100%;
     justify-content: center;
     align-items:center;
-    margin: 0 auto;
-    float: inline-end;
 }
 .select {
     width: 60%;
 }
+.btn-form {
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 3px 0 rgb(0, 0, 0, 0.2);
+  background-color: #062743;
+  font-size: 0.8em;
+  width: 8em;
+  text-align: center;
+  height: 3rem;
+  color: #f9f9f9;
+}
+.btn-form:hover {
+  background-color: #C4FFDD;
+  color: #113A5D;
+  transition: 200ms all;
+}
+.btn-form:active {
+  background-color: #113A5D;
+  color: #f9f9f9;
+  transition: 20ms;
+}
+
 </style>
