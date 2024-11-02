@@ -53,6 +53,8 @@ export default {
 <style scoped>
 .content-container {
   width: 100%;
+  height: auto;
+  transition: all 650ms;
 }
 
 .titulo {
@@ -94,18 +96,20 @@ export default {
   width: 100%;
   height: auto;
   position: relative;
-  transition: max-height 650ms;
+  transition: max-height 0.5s;
 }
 .content a {
     width: 100%;
 }
 
 .content.expanded {
-  max-height: 20rem;
+  max-height: 50em;
+  transition: all 0.5s;
 }
 .shadow {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   margin-bottom: 3em;
   border-radius: 10px;
+  transition: all 1s;
 }
 </style>

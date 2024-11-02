@@ -69,6 +69,7 @@ export default {
 }
 .tarea-container {
     width: auto;
+    height: auto;
     padding: 15px;
     background-color: #f9f9f9;
     display: flex;

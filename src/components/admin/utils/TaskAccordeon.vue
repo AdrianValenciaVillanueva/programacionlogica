@@ -102,7 +102,7 @@ export default {
 }
 
 .content.expanded {
-  max-height: 50rem;
+  max-height: 30rem;
   transition: all 0.5s;
   width: 100%;
 }

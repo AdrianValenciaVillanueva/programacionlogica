@@ -62,6 +62,7 @@ export default {
 }
 .page-wrapper {
     display: flex;
+    height: auto;
     background-color: #f9f9f9;
     justify-content: center;
     font-family: Helvetica, sans-serif;
@@ -70,57 +71,33 @@ export default {
     display: block;
     margin: 0 auto;
     width: 85%;
+    height: auto;
     padding: 2em 4em 0em 4em;
     gap: 20px;
 }
-.titulo {
-    display: flex;
-    position: relative;
-    align-items: center;
-    text-decoration: none;
-    justify-content: space-between;
-    cursor: pointer;
-    padding: 15px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    border-radius: 4px;
-}
-.titulo h1 {
-    font-size: 1.8rem;
-    text-align: left;
-}
-.titulo img {
-    width: 1.8rem;
-    height: 2.7rem;
-    transition: transform 0.3s ease;
-}
-.titulo img.rotated {
-    transform: rotate(180deg);
-}
-.titulo:hover {
-    background-color: #dde1e6;
-}
-.titulo:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-}
-.content {
-    overflow: hidden;
-    max-height: 0;
-    position: relative;
-    transition: max-height 650ms;
-}
 .content-container:target .content{
-    max-height: 20rem;
+    max-height: 20000rem;
 }
 
 .dropdownitems {
     margin-top: 20px;
     list-style: none;
     width: 100%;
-    transition: all 200ms;
+    transition: all 690ms;
+}
+
+@media (max-width: 850px) {
+    .content-container {
+        padding-right: 0.1rem;
+        padding-left: 0.1rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .content-container {
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }
 </style>

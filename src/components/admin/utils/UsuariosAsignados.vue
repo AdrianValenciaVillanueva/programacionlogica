@@ -1,6 +1,14 @@
 <template>
     <div class="usuarios-container" id="usuarios-container">
-        <button class="btn-salir">Salir</button>
+
+        <header>
+            <button class="btn-salir" @click="goBack">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+</svg>
+            </button>
+        </header>
+
         <div class="page-wrapper" id="page-wrapper">
             <div class="titulo" id="titulo">
                 <h1>{{ title }}</h1>
@@ -96,6 +104,9 @@ export default {
                 console.error('Error consiguiendo usuarios en tarea', this.title, error);
             });
         },
+        goBack() {
+            this.$router.back();
+        }
     },
     mounted() {
         this.loadUsers();
@@ -111,15 +122,17 @@ export default {
 }
 .usuarios-container {
     display: flex;
+    flex-flow: column;
+    align-items: center;
     position: relative;
     justify-content: center;
 }
 .page-wrapper {
     display: block;
     width: 53%;
+    text-overflow: ellipsis;
     height: auto;
     margin-bottom: 2rem;
-    margin-top: 2rem;
     padding: 1rem;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 8px;
@@ -161,16 +174,59 @@ section img {
     margin-bottom: 4rem;
 }
 .btn-salir {
-    background-color: red;
-    color: white;
-    position: absolute;
-    width: 4rem;
-    top: 0;
-    left: 0;
-    margin-left: 2rem;
-    margin-top: 2rem;
-    padding: 1rem;
-    border-radius: 6px;
+    background-color: transparent;
+    border: none;
+    width: auto;
     height: auto;
+}
+
+.btn-salir svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.btn-salir:hover svg {
+    fill: #dde1e6;
+    transition: all 350ms;
+}
+.btn-salir:active svg {
+    fill: #808080;
+    transition: 100ms;
+}
+
+header {
+    width: 90%;
+    padding: 0.5rem;
+    display: flex; 
+    justify-content: flex-start;
+    align-items: center;
+    height: 5rem;
+}
+
+@media (max-width: 850px) {
+    .page-wrapper {
+        width: 85%;
+        justify-self: stretch;
+    }
+    h3 {
+        font-size: 0.7rem;
+    }
+    h2 {
+        font-size: 1.1rem;
+    }
+    h1 {
+        font-size: 1.6rem;
+    }
+}
+@media (min-height: 1200px), (min-width: 1815px) {
+  h2{
+    font-size: 2.3em;
+  }
+  h3{
+    font-size: 1.9em;
+  }
+  h1 {
+    font-size: 2.8em;
+  }
 }
 </style>
