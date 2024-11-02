@@ -112,6 +112,9 @@ export default {
   text-align: left;
   width: 100%;
 }
+.info-task span b {
+  font-size: 0.999999999rem;
+}
 .titulo.backRot {
   background-color: #e0e0e0;
 }

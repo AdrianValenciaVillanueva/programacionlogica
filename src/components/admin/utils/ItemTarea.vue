@@ -23,7 +23,7 @@
         <div class="col-mitad">
 
             <div class="select-users">
-                <button class="btn-form">usuarios asignados</button>
+                <button class="btn-form" @click="seeUsers">usuarios asignados</button>
             </div>
         </div>
 
@@ -45,7 +45,22 @@ export default {
             type: Object,
             required: true
         }
-    }
+    },
+    methods: {
+        seeUsers() {
+            console.log(this.task.team_id);
+
+            if (this.task.team_id) {
+                this.$router.push({
+                    name: 'tareas-usuarios',
+                    params: {
+                        teamId: this.task.team_id,
+                        tarea: this.task.title
+                    },
+                });
+            }
+        },
+    },
 };
 </script>
 <style scoped>

@@ -29,10 +29,22 @@ export default {
         },
     },
     mounted() {
-        axios.get(`http://127.0.0.1:8000/tasks`)
+        let keyValue = (v1, v2) => `${v1},${v2}`;
+
+        const team_id = this.$route.params.teamId;
+        axios.get(`http://127.0.0.1:8000/tasks/team/${team_id}`)
         .then(response => {
-            this.tasks = response.data;
+            let uniqueTasks = new Map();
+            const respApi = response.data;
+            respApi.forEach(t => {
+                let apiValue = keyValue(t.title, t.description);
+                if (!uniqueTasks.has(apiValue)) {
+                    this.tasks.push(t);
+                    uniqueTasks.set(apiValue, true);
+                }
+            });
             console.log('tareas publicadas', this.tasks);
+            // this.tasks = response.data;
             
         })
         .catch(error => {
