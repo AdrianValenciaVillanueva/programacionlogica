@@ -85,6 +85,6 @@ export default {
 }
 
 .dropdown-menu li:hover {
-    background-color: #ececec;
+    background-color: #dde1e6;
 }
 </style>

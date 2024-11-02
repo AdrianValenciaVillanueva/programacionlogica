@@ -64,7 +64,7 @@ li {
     border-radius: 15px;
 }
 li:hover{
-    background-color: #b9b9b9;
+    background-color: #dde1e6;
     user-select: none;
 }
 

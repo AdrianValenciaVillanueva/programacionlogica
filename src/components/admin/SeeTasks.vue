@@ -85,7 +85,7 @@ export default {
     transform: rotate(180deg);
 }
 .titulo:hover {
-    background-color: #f2f2f2;
+    background-color: #dde1e6;
 }
 .titulo:after {
     content: '';

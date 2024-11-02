@@ -1,8 +1,8 @@
 <template>
   <div class="content-container">
-    <a class="titulo" @click="toggleDropDown">
+    <a class="titulo" @click="toggleDropDown" :class="{backRot: isRotated}">
       <div class="info-task" id="info-task">
-        <span>{{ task.title }}</span>
+        <span><b>{{ task.title }}</b></span>
         <span>{{ task.deadline }}</span>
       </div>
       <img
@@ -90,7 +90,7 @@ export default {
 }
 
 .titulo:hover {
-  background-color: #f2f2f2;
+  background-color: #dde1e6;
 }
 
 .content {
@@ -111,5 +111,8 @@ export default {
   grid-template-columns: 1fr 1fr;
   text-align: left;
   width: 100%;
+}
+.titulo.backRot {
+  background-color: #e0e0e0;
 }
 </style>

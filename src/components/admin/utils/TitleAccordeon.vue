@@ -9,7 +9,7 @@
       />
     </a>
 
-    <div v-if="tasks.length > 0">
+    <div v-if="tasks.length > 0" class="shadow">
       <div v-for="task in tasks" :key="task.id" class="content" :class="{ expanded: isExpanded }">
           <TaskAccordeon :task="task"/>
       </div>
@@ -65,10 +65,11 @@ export default {
   cursor: pointer;
   padding: 15px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  border-radius: 4px;
+  border-radius: 11px;
 }
 .titulo:hover {
   user-select: none;
+  background-color: #dde1e6;
 }
 
 .titulo h1 {
@@ -87,10 +88,6 @@ export default {
   transform: rotate(0deg);
 }
 
-.titulo:hover {
-  background-color: #f2f2f2;
-}
-
 .content {
   overflow: hidden;
   max-height: 0;
@@ -98,7 +95,6 @@ export default {
   height: auto;
   position: relative;
   transition: max-height 650ms;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 .content a {
     width: 100%;
@@ -106,5 +102,10 @@ export default {
 
 .content.expanded {
   max-height: 20rem;
+}
+.shadow {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  margin-bottom: 3em;
+  border-radius: 10px;
 }
 </style>

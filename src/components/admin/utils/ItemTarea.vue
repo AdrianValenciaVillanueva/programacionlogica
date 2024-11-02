@@ -24,7 +24,6 @@
 
             <div class="select-users">
                 <button class="btn-form">usuarios asignados</button>
-                <button class="btn-form">no entregados</button>
             </div>
         </div>
 
@@ -61,7 +60,6 @@ export default {
     border-radius: 5px;
     justify-content: left;
     align-items: stretch;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 .col-mitad {
     width: 50%;
@@ -70,11 +68,10 @@ export default {
     width: 100%;
 }
 .texto {
-    font-size: 1em;
-    font-weight: lighter;
+    font-size: 0.8em;
     color: black;
     text-align: justify;    
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Helvetica', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .twocolumns {
     display: grid;
@@ -99,7 +96,6 @@ export default {
     display: flex;
     flex-direction: column;
     height: 100%;
-    border: red 1px solid;
     gap: 2.5rem;
     width: 100%;
     justify-content: center;
@@ -111,7 +107,6 @@ export default {
 .btn-form {
   border-radius: 10px;
   cursor: pointer;
-  border: none;
   box-shadow: 0 2px 3px 0 rgb(0, 0, 0, 0.2);
   background-color: #062743;
   font-size: 0.8em;
