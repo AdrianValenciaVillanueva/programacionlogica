@@ -53,7 +53,7 @@ export default {
     methods: {
         loadUsers() {
             const teamId = this.$route.params.teamId;
-            axios.get(`http://127.0.0.1:8000/tasks/team/${teamId}/pending`)
+            axios.get(`http://127.0.0.1:8000/tasks/team/${teamId}`)
             .then(response => {
                 const tasks = response.data.filter(u => u.title === this.title);
                 console.log(tasks);
