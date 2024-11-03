@@ -13,7 +13,7 @@ const routes = [
   { path: '/iniciar-sesion', component: IniciarComp }, 
   { path: '/crear-cuenta', component: CrearCuenta },
   { path: '/crear-equipo', component: CrearEquipo },
-  { path: '/panel-usuario', component: PanelUsuario, name:'panel-usuario'},
+  { path: '/panel-usuario/:userId', component: PanelUsuario, name:'panel-usuario'},
   { path: '/panel-admin/:userId', component: HomeAdmin, name:'panel-admin',
     children: [
       {path: 'ver-tareas/:teamId', component: SeeTasks, name:'ver-tareas'},

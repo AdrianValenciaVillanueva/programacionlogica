@@ -126,59 +126,82 @@
 
 <script>
 import axios from 'axios';
+
 export default {
   data() {
     return {
       mostrarTareasPendientes: true, // Estado inicial para mostrar tareas pendientes
       tareasPendientes: [],
       tareasHechas: [],
-      user_id:12345,
+      user: {
+        id: '',
+        username: '',
+        is_admin: false,
+        id_team: '',
+      },
     };
   },
 
   methods: {
-    async obtenerTareas() {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/tasks/`);
-        const tareas = response.data;
-        this.tareasPendientes = tareas.filter(tarea => tarea.status === 'pending');
-        this.tareasHechas = tareas.filter(tarea => tarea.status === 'completed');
-        console.log('Tareas obtenidas:', tareas);
-      } catch (error) {
-        if (error.response) {
-          console.error('Error al obtener las tareas:', error.response.data);
-          this.errorMessage = 'Error al obtener las tareas: ' + JSON.stringify(error.response.data.detail);
-        } else {
-          console.error('Error al obtener las tareas:', error.message);
-          this.errorMessage = 'Error al obtener las tareas: ' + error.message;
-        }
+  async obtenerTareas() {
+    try {
+      console.log('Obteniendo tareas del usuario:', this.user.id);
+      const response = await axios.get(`http://127.0.0.1:8000/tasks/user/${this.user.id}`);
+      const tareas = response.data;
+      this.tareasPendientes = tareas.filter(tarea => tarea.status === 'pending');
+      this.tareasHechas = tareas.filter(tarea => tarea.status === 'completed');
+      console.log('Tareas obtenidas:', tareas);
+    } catch (error) {
+      if (error.response) {
+        console.error('Error al obtener las tareas:', error.response.data);
+        this.errorMessage = 'Error al obtener las tareas: ' + JSON.stringify(error.response.data.detail);
+      } else {
+        console.error('Error al obtener las tareas:', error.message);
+        this.errorMessage = 'Error al obtener las tareas: ' + error.message;
       }
-    },
-    
-    async marcarTareaComoHecha(task_id) {
-      try {
-        const response = await axios.put(`http://127.0.0.1:8000/tasks/${task_id}/completed`);
-        console.log('Tarea marcada como hecha:', response.data);
-        // Actualizar la lista de tareas después de marcar como hecha
-        this.obtenerTareas();
-      } catch (error) {
-        if (error.response) {
-          console.error('Error al marcar la tarea como hecha:', error.response.data);
-          this.errorMessage = 'Error al marcar la tarea como hecha: ' + JSON.stringify(error.response.data.detail);
-        } else {
-          console.error('Error al marcar la tarea como hecha:', error.message);
-          this.errorMessage = 'Error al marcar la tarea como hecha: ' + error.message;
-        }
-      }
-    },
-    
+    }
   },
 
-  
-  mounted() {
-    const username = 'nombre_usuario'; // Reemplaza esto con el nombre de usuario real
-    this.obtenerTareas(username);
+  async marcarTareaComoHecha(task_id) {
+    try {
+      console.log('Marcando tarea como hecha:', task_id);
+      const response = await axios.put(`http://127.0.0.1:8000/tasks/${task_id}/completed`);
+      console.log('Tarea marcada como hecha:', response.data);
+      // Actualizar la lista de tareas después de marcar como hecha
+      this.obtenerTareas();
+    } catch (error) {
+      if (error.response) {
+        console.error('Error al marcar la tarea como hecha:', error.response.data);
+        this.errorMessage = 'Error al marcar la tarea como hecha: ' + JSON.stringify(error.response.data.detail);
+      } else {
+        console.error('Error al marcar la tarea como hecha:', error.message);
+        this.errorMessage = 'Error al marcar la tarea como hecha: ' + error.message;
+      }
+    }
+  },
+
+  async obtenerUsuario(userId) {
+    try {
+      console.log('Obteniendo usuario:', userId);
+      const response = await axios.get(`http://127.0.0.1:8000/users/${userId}`);
+      this.user = response.data;
+      console.log('Usuario obtenido:', this.user);
+    } catch (error) {
+      console.error('Error al obtener el usuario:', error);
+    }
+  },
+},
+
+mounted() {
+  const userId = this.$route.params.userId;
+  if (userId) {
+    this.obtenerUsuario(userId).then(() => {
+      this.obtenerTareas();
+    });
+  } else {
+    console.error('No se encontró userId en los parámetros de la ruta');
   }
+},
 };
 </script>
 

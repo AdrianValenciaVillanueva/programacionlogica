@@ -53,43 +53,39 @@ export default {
     };
   },
   methods: {
-    async enviar() {
-      // Verificar si todos los campos están completos
-      if (!this.nombre || !this.contrasenia) {
-        this.errorMessage = 'Por favor, completa todos los campos.';
-        return;
-      }
+  async enviar() {
+    // Verificar si todos los campos están completos
+    if (!this.nombre || !this.contrasenia) {
+      this.errorMessage = 'Por favor, completa todos los campos.';
+      return;
+    }
 
-      try {
-        const response = await axios.post('http://127.0.0.1:8000/login/', {
-          username: this.nombre,
-          password: this.contrasenia
-        });
-        console.log('Inicio de sesión exitoso:', response.data);
-        //redirigir
-        const id = response.data.user_id;
-        console.log(id);
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/login/', {
+        username: this.nombre,
+        password: this.contrasenia
+      });
+      console.log('Inicio de sesión exitoso:', response.data);
+      // Redirigir
+      const id = response.data.user_id;
+      const responseUser = await axios.get(`http://127.0.0.1:8000/users/${id}`);
+      const user = responseUser.data;
+      console.log('Usuario logeado:', user);
 
-        const responseUser = await axios.get(`http://127.0.0.1:8000/users/${id}`);
-        const user = responseUser.data;
-        console.log('user logeado:',user);
-        
-
-        const pagina = user.is_admin? 'panel-admin': 'panel-usuario';
-        this.$router.push({name: pagina, params: {userId: id}});
-        this.errorMessage = ''; // Limpiar mensaje de error si todo es correcto
-        // Aquí puedes redirigir al usuario a otra página o guardar el token de sesión
-      } catch (error) {
-        if (error.response) {
-          console.error('Error al iniciar sesión:', error.response.data);
-          this.errorMessage = 'Error al iniciar sesión: ' + JSON.stringify(error.response.data.detail);
-        } else {
-          console.error('Error al iniciar sesión:', error.message);
-          this.errorMessage = 'Error al iniciar sesión: ' + error.message;
-        }
+      const pagina = user.is_admin ? 'panel-admin' : 'panel-usuario';
+      this.$router.push({ name: pagina, params: { userId: id } });
+      this.errorMessage = ''; // Limpiar mensaje de error si todo es correcto
+    } catch (error) {
+      if (error.response) {
+        console.error('Error al iniciar sesión:', error.response.data);
+        this.errorMessage = 'Error al iniciar sesión: ' + JSON.stringify(error.response.data.detail);
+      } else {
+        console.error('Error al iniciar sesión:', error.message);
+        this.errorMessage = 'Error al iniciar sesión: ' + error.message;
       }
     }
   }
+}
 };
 </script>
 
