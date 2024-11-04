@@ -7,9 +7,10 @@ import HomeAdmin from './components/admin/HomeAdmin.vue';
 import SeeTasks from './components/admin/SeeTasks.vue';
 import TaskForm from './components/admin/TaskForm.vue';
 import UsuariosAsignados from './components/admin/utils/UsuariosAsignados.vue';
+import HomePage from './HomePage.vue'; // Importa el nuevo componente Home.vue
 
 const routes = [
-  { path: '/', redirect: '/iniciar-sesion'},
+  { path: '/', component: HomePage }, // Define la ruta para la página principal
   { path: '/iniciar-sesion', component: IniciarComp }, 
   { path: '/crear-cuenta', component: CrearCuenta },
   { path: '/crear-equipo', component: CrearEquipo },
@@ -29,4 +30,3 @@ const router = createRouter({
 });
 
 export default router;
-
