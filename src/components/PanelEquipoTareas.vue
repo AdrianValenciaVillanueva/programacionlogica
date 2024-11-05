@@ -12,13 +12,12 @@
           <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
         </svg>
         <h2 id="usuarioTitulo">Usuario</h2>
-        <router-link to="/">
         <button class="logOutButton" aria-label="Cerrar sesión" @click="logout">
   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16" aria-hidden="true">
     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
   </svg>
   <span >Log out</span>
-</button></router-link>
+</button>
 
       </div>
     </div>
@@ -69,10 +68,10 @@
               </div>
 
               <div class="Botones">
-                <button @click="descargarPDF">Descargar PDF
+                <button class="boton" @click="descargarPDF">
                   <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="40px" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
-                  </svg>
+                  </svg>  
                 </button>
                 <button class="boton" aria-label="Marcar tarea como hecha" @click="marcarTareaComoHecha(tarea.id)">
                   <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16" aria-hidden="true">
@@ -88,7 +87,7 @@
 
         </div>
 
-        <div v-else key="hechas" class="mostrarTareasHechas" role="tabpanel" aria-labelledby="tareasHechas">
+        <div v-else key="hechas" class="mostrarTareasHechas" role="tabpanel" aria-labelledby="mostrarTareasHechas">
           <h3 id="tareasHechas" class="visually-hidden">Tareas Hechas</h3>
           
           <div v-for="tarea in tareasHechas" :key="tarea._id" class="TareaHecha" role="article" :aria-labelledby="'tareaHecha' + tarea._id + 'Titulo'">
@@ -109,13 +108,13 @@
                   </div>
                 </div>
               </div>
-              <div class="Botones">
+              <!-- <div class="Botones">
                 <button @click="descargarPDF">Descargar PDF
                 <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="25px" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
                   </svg>
                 </button>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -245,6 +244,22 @@ body{
 .mostrarTareasPendientes, .mostrarTareasHechas{
   justify-content: center;
   display: flex;
+  width: 50%;
+
+  /* colocar en columna */
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  align-content: center;
+  gap: 16px; /* Espacio entre tareas */
+  margin: 0 auto;
+}
+
+.mostrarTareasHechas{
+  width: 50%;
+  justify-content: center;
+  display: flex;
+
   /* colocar en columna */
   flex-direction: column;
   overflow-x: hidden;
@@ -252,7 +267,6 @@ body{
   gap: 16px; /* Espacio entre tareas */
   margin: 0 auto;
 }
-
 
 .PanelTareasEquipoPendientes {
   padding: 0;
@@ -379,7 +393,7 @@ button{
 }
 
 .TareaPendiente, .TareaHecha {
-  width: 80%;
+  width: 90%;
   padding: 20px;
   padding-top: 0 ;
   background-color: white;
