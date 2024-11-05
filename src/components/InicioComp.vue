@@ -19,7 +19,7 @@
                 />
             </div>
             <div class="ContenedorBot">
-            <button class="botonCon" @click="enviar">Continuar</button>
+                <button class="botonCon" @click="enviar">Continuar</button>
             </div>
         </div>
         <div class="redireccion">
@@ -36,56 +36,74 @@
                 </router-link>
             </div>
         </div>
-        <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
   name: 'InicioComp',
   data() {
     return {
       nombre: '',
-      contrasenia: '',
-      errorMessage: ''
+      contrasenia: ''
     };
   },
   methods: {
-  async enviar() {
-    // Verificar si todos los campos están completos
-    if (!this.nombre || !this.contrasenia) {
-      this.errorMessage = 'Por favor, completa todos los campos.';
-      return;
-    }
+    async enviar() {
+      // Verificar si todos los campos están completos
+      if (!this.nombre || !this.contrasenia) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Campos incompletos',
+          text: 'Por favor, completa todos los campos.'
+        });
+        return;
+      }
 
-    try {
-      const response = await axios.post('http://127.0.0.1:8000/login/', {
-        username: this.nombre,
-        password: this.contrasenia
-      });
-      console.log('Inicio de sesión exitoso:', response.data);
-      // Redirigir
-      const id = response.data.user_id;
-      const responseUser = await axios.get(`http://127.0.0.1:8000/users/${id}`);
-      const user = responseUser.data;
-      console.log('Usuario logeado:', user);
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/login/', {
+          username: this.nombre,
+          password: this.contrasenia
+        });
+        console.log('Inicio de sesión exitoso:', response.data);
+        
+        const id = response.data.user_id;
+        const responseUser = await axios.get(`http://127.0.0.1:8000/users/${id}`);
+        const user = responseUser.data;
+        console.log('Usuario logeado:', user);
 
-      const pagina = user.is_admin ? 'panel-admin' : 'panel-usuario';
-      this.$router.push({ name: pagina, params: { userId: id } });
-      this.errorMessage = ''; // Limpiar mensaje de error si todo es correcto
-    } catch (error) {
-      if (error.response) {
-        console.error('Error al iniciar sesión:', error.response.data);
-        this.errorMessage = 'Error al iniciar sesión: ' + JSON.stringify(error.response.data.detail);
-      } else {
-        console.error('Error al iniciar sesión:', error.message);
-        this.errorMessage = 'Error al iniciar sesión: ' + error.message;
+        const pagina = user.is_admin ? 'panel-admin' : 'panel-usuario';
+        
+        Swal.fire({
+          icon: 'success',
+          title: 'Inicio de sesión exitoso',
+          text: 'Redirigiendo...'
+        }).then(() => {
+          this.$router.push({ name: pagina, params: { userId: id } });
+        });
+
+      } catch (error) {
+        if (error.response) {
+          console.error('Error al iniciar sesión:', error.response.data);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al iniciar sesión',
+            text: error.response.data.detail || 'Ocurrió un error, inténtalo de nuevo.'
+          });
+        } else {
+          console.error('Error al iniciar sesión:', error.message);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al iniciar sesión',
+            text: error.message
+          });
+        }
       }
     }
   }
-}
 };
 </script>
 
