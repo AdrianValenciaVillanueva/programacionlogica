@@ -56,12 +56,20 @@ export default {
   margin: 0;
   box-sizing: border-box;
 }
+
+html, body {
+  background-color:#f4f4f4;
+  height: 100%;
+}
+
 .page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: Arial, sans-serif;
   color: #333;
 }
 
-/* Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -70,38 +78,42 @@ export default {
   background-color: #062743;
   color: #fff;
 }
-.navbar .logo {
+
+.logo {
   font-size: 1.5em;
   font-weight: bold;
 }
-.navbar .nav-links {
+
+.nav-links {
   list-style: none;
   display: flex;
   gap: 20px;
 }
-.navbar .nav-links li {
+
+.nav-links li {
   display: inline;
 }
-.navbar .nav-links a, .login-button {
+
+.nav-links a, .login-button {
   color: #fff;
   text-decoration: none;
   font-weight: bold;
   padding: 8px 15px;
   transition: background-color 0.3s;
 }
+
 .login-button {
   background-color: #062743;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
+
 .login-button:hover {
   background-color: #003d82;
 }
 
-/* Hero Section */
 .hero-section {
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -111,17 +123,20 @@ export default {
   background: linear-gradient(135deg, #f4f4f4, #f4f4f4);
   text-align: center;
 }
+
 .hero-section h1 {
   font-size: 3em;
   margin-bottom: 20px;
   font-weight: bold;
   color: #062743;
 }
+
 .hero-section p {
   font-size: 1.2em;
   color: #555;
   margin-bottom: 30px;
 }
+
 .cta-button {
   padding: 15px 30px;
   font-size: 1.1em;
@@ -132,24 +147,26 @@ export default {
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
 .cta-button:hover {
   background-color: #062743;
 }
 
-/* Features Section */
 .features-section {
-  padding: 30px 20px; /* Reduce padding to bring section closer */
+  padding: 30px 20px;
   text-align: center;
   background-color: #f4f4f4;
   padding-bottom: 62px;
 }
+
 .features-grid {
   display: flex;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
-  margin-top: -20px; /* Move grid closer to the header */
+  margin-top: -20px;
 }
+
 .feature-box {
   flex: 1;
   min-width: 250px;
@@ -161,27 +178,29 @@ export default {
   transition: transform 0.3s, box-shadow 0.3s;
   text-align: center;
 }
+
 .feature-box h3 {
   font-size: 1.5em;
   color: #062743;
   margin-bottom: 10px;
 }
+
 .feature-box p {
   font-size: 1em;
   color: #666;
 }
 
-/* Hover effect */
 .feature-box:hover {
   transform: translateY(-10px);
   box-shadow: 0 8px 16px rgba(0, 123, 255, 0.4);
 }
 
-/* Footer */
 .footer {
+  margin-top: auto;
   padding: 20px;
   background-color: #062743;
   color: #fff;
   text-align: center;
 }
+
 </style>
