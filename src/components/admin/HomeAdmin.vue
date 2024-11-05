@@ -5,19 +5,23 @@
 
                     <div class="imgtext">
                         <img src="./../../assets/id.png" alt="codigo">
-                        <span>{{ user.id }}</span>
+                        <span>ID: {{ user.id }}</span>
                     </div>
 
                     <div class="imgtext">
                         <img src="./../../assets/team.png" alt="equipo">
-                        <span>{{ user.id_team }}</span>
+                        <span>Equipo: {{ user.id_team }}</span>
                     </div>
 
                     <div class="imgtext">
                         <img src="./../../assets/profile.png" alt="admin">
-                        <span>{{user.username}}</span>
+                        <span>Usuario: {{user.username}}</span>
                     </div>
-
+                    <router-link to="/">
+                    <button class="logOutButton" aria-label="Cerrar sesión" @click="logout">
+                        <span >Cerrar sesión</span>
+                    </button>
+                    </router-link>
                 </div>
         </nav>
 
@@ -146,6 +150,26 @@ main {
 .imgtext img {
     width: 2em;
     height: 2em;
+}
+.logOutButton {
+  /* padding: 10px 20px; */
+  font-size: 18px;
+  background: #FFFFFF;
+  width: 180px;
+  height: 40px;
+  border-radius: 30px;
+  color: #003b6f;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+}
+
+.logOutButton:hover {
+  background-color: #011f3a;
+  color: #FFFFFF;
+  bottom: 0;
+  left: 0;
 }
 @media (max-width: 590px) {
     main {

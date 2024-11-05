@@ -73,16 +73,22 @@ export default {
         const id = response.data.user_id;
         const responseUser = await axios.get(`http://127.0.0.1:8000/users/${id}`);
         const user = responseUser.data;
+        const teamId = user.id_team;
         console.log('Usuario logeado:', user);
 
-        const pagina = user.is_admin ? 'panel-admin' : 'panel-usuario';
+        let pagina;
+            if (user.is_admin) {
+                pagina = `/panel-admin/${id}/crear-tareas/${teamId}`;
+            } else {
+                pagina = `/panel-usuario/${id}`;
+            }
         
         Swal.fire({
           icon: 'success',
           title: 'Inicio de sesión exitoso',
           text: 'Redirigiendo...'
         }).then(() => {
-          this.$router.push({ name: pagina, params: { userId: id } });
+          this.$router.push(pagina);
         });
 
       } catch (error) {
@@ -91,14 +97,14 @@ export default {
           Swal.fire({
             icon: 'error',
             title: 'Error al iniciar sesión',
-            text: error.response.data.detail || 'Ocurrió un error, inténtalo de nuevo.'
+            text: 'Contraseña invalida'
           });
         } else {
           console.error('Error al iniciar sesión:', error.message);
           Swal.fire({
             icon: 'error',
             title: 'Error al iniciar sesión',
-            text: error.message
+            text: 'Ocurrió un error, inténtalo de nuevo.'
           });
         }
       }
@@ -113,6 +119,7 @@ export default {
 }
 
 .principal {
+    padding-top: 60px;
     justify-items: center;
 }
 
@@ -192,6 +199,7 @@ h1 {
 }
 
 .redireccion {
+    padding-top: 10px;
     font-size: 1.2rem;
     display: flex;
     width: 590px;

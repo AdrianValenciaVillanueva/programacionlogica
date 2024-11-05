@@ -83,7 +83,7 @@ export default {
         Swal.fire({
           icon: 'error',
           title: 'Error de validación',
-          text: 'Por favor, completa todos los campos obligatorios.',
+          text: 'Por favor, completa todos los campos.',
         });
         return;
       }
@@ -106,11 +106,11 @@ export default {
             text: `La tarea se creó con éxito para todos los usuarios`,
           });
         })
-        .catch(error => {
+        .catch(()=> {
           Swal.fire({
             icon: 'error',
             title: 'Error al crear tarea',
-            text: `Hubo un error subiendo tareas: ${error.message}`,
+            text: `El tiempo de entrega ya esta caducado`,
           });
         });
       });
@@ -229,6 +229,7 @@ textarea {
   cursor: pointer;
   box-shadow: 0 2px 3px 0 rgb(0, 0, 0, 0.2);
   background-color: #062743;
+  border:none;
   width: auto;
   height: auto;
   margin-top: 4em;

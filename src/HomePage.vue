@@ -1,14 +1,15 @@
 <template>
   <div class="page-wrapper">
     <nav class="navbar">
-      <div class="logo">OurAplicación</div>
+      <div class="logo">WeUs</div>
       <ul class="nav-links">
-        <li><button @click="goToCreateAccount" class="login-button">Crear Cuenta</button></li>
+        <li><button @click="goToCreateAccount" class="login-button">Crear Usuario</button></li>
+        <li><router-link to="crear-equipo"><button class="login-button">Crear Equipo</button></router-link></li>
       </ul>
     </nav>
     
     <header class="hero-section" id="home">
-      <h1>Bienvenido a Nuestra Plataforma</h1>
+      <h1>Bienvenido a WeUs</h1>
       <p>Optimiza la colaboración y administración de tareas de manera sencilla.</p>
       <button @click="goToLogin" class="cta-button">Iniciar Sesión</button>
     </header>
@@ -31,7 +32,7 @@
     </section>
     
     <footer class="footer">
-      <p>&copy; 2024 MiAplicación. Todos los derechos reservados.</p>
+      <p>&copy; 2024 WeUs. Todos los derechos reservados.</p>
     </footer>
   </div>
 </template>
@@ -58,16 +59,16 @@ export default {
 }
 
 html, body {
-  background-color:#f4f4f4;
   height: 100%;
+  margin: 0;
+  background-color: #f4f4f4; /* Fondo consistente en toda la página */
 }
 
 .page-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
-  color: #333;
+  min-height: 100vh; /* Asegura que ocupe toda la altura del viewport */
+  background-color: #f4f4f4; /* Color de fondo del contenido */
 }
 
 .navbar {
@@ -118,8 +119,7 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 100px 20px;
-  padding-bottom: 20px;
+  padding: 60px 20px;
   background: linear-gradient(135deg, #f4f4f4, #f4f4f4);
   text-align: center;
 }
@@ -156,7 +156,6 @@ html, body {
   padding: 30px 20px;
   text-align: center;
   background-color: #f4f4f4;
-  padding-bottom: 62px;
 }
 
 .features-grid {
@@ -196,11 +195,13 @@ html, body {
 }
 
 .footer {
-  margin-top: auto;
   padding: 20px;
   background-color: #062743;
   color: #fff;
   text-align: center;
+  margin-top: auto; /* Empuja el footer hacia abajo */
 }
+
+
 
 </style>

@@ -101,13 +101,17 @@ export default {
         });
         console.log('Usuario creado:', response.data);
         
+        const id = response.data.id;
+        let pagina = `panel-usuario/${id}`;
+        console.log('Redirigiendo a: ', pagina);
+
         // Mostrar mensaje de éxito y redirigir
         Swal.fire({
           icon: 'success',
           title: 'Usuario creado',
           text: 'El usuario se ha creado exitosamente.',
         }).then(() => {
-          this.$router.push('/iniciar-sesion');
+          this.$router.push(pagina);
         });
       } catch (error) {
         console.error('Error al crear el usuario:', error.response ? error.response.data : error.message);

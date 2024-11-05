@@ -101,13 +101,17 @@ export default {
         });
         console.log('Usuario creado:', response.data);
 
+        const id = response.data.id;
+        const teamId =response.data.id_team;
+        let pagina = `panel-admin/${id}/crear-tareas/${teamId}`;
+        console.log('Redirigiendo a: ', pagina);
+
         Swal.fire({
           icon: 'success',
           title: 'Equipo creado',
           text: 'El equipo se ha creado exitosamente.'
         }).then(() => {
-          // Redirigir a la página de inicio de sesión después de la confirmación
-          this.$router.push('/iniciar-sesion');
+          this.$router.push(pagina);
         });
       } catch (error) {
         let errorMessage = 'Error al crear el usuario';

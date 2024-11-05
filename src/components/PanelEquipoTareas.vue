@@ -5,21 +5,19 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16" aria-hidden="true">
           <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
         </svg>
-        <h2 id="equipoTitulo">Equipo</h2>
+        <h2 id="equipoTitulo">Equipo: {{user.id_team}}</h2>
       </div>
       <div class="apTitulo" aria-labelledby="usuarioTitulo">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16" aria-hidden="true">
           <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
         </svg>
-        <h2 id="usuarioTitulo">Usuario</h2>
-        <button class="logOutButton" aria-label="Cerrar sesión" @click="logout">
-  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16" aria-hidden="true">
-    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-  </svg>
-  <span >Log out</span>
-</button>
-
+        <h2 id="usuarioTitulo">Usuario: {{ user.username }}</h2>
       </div>
+      <router-link to="/">
+        <button class="logOutButton" aria-label="Cerrar sesión" @click="logout">
+  <span >Cerrar sesión</span>
+</button>
+        </router-link>
     </div>
 
     <div class="PanelTareasEquipoPendientes" role="region" aria-labelledby="panelTareasTitulo">
@@ -358,30 +356,24 @@ button{
 .logOutButton {
   /* padding: 10px 20px; */
   font-size: 18px;
-  background: none;
-  color: white;
+  background: #FFFFFF;
+  width: 200px;
+  height: 50px;
+  border-radius: 30px;
+  color: #003b6f;
   border: none;
   cursor: pointer;
   font-weight: bold;
   position: relative;
 }
 
-.logOutButton::before {
-  content: "";
-  position: absolute;
+.logOutButton:hover {
+  background-color: #011f3a;
+  color: #FFFFFF;
   bottom: 0;
   left: 0;
-  width: 100%;
-  height: 0;
-  border-bottom: 1px solid #ffffff;
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-  transform-origin: left;
 }
 
-.logOutButton:hover::before {
-  transform: scaleX(1);
-}
 
 
 .PanelTareas {
