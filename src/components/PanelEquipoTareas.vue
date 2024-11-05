@@ -68,7 +68,7 @@
               </div>
 
               <div class="Botones">
-                <button class="boton" aria-label="Descargar tarea">
+                <button @click="descargarPDF">Descargar PDF
                   <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="40px" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
                   </svg>
@@ -109,8 +109,8 @@
                 </div>
               </div>
               <div class="Botones">
-                <button class="boton" aria-label="Descargar tarea">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="25px" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16" aria-hidden="true">
+                <button @click="descargarPDF">Descargar PDF
+                <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="25px" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16" aria-hidden="true">
                     <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
                   </svg>
                 </button>
@@ -126,11 +126,13 @@
 
 <script>
 import axios from 'axios';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable'; // Importar correctamente la librería
 
 export default {
   data() {
     return {
-      mostrarTareasPendientes: true, // Estado inicial para mostrar tareas pendientes
+      mostrarTareasPendientes: true,
       tareasPendientes: [],
       tareasHechas: [],
       user: {
@@ -143,67 +145,89 @@ export default {
   },
 
   methods: {
-  async obtenerTareas() {
-    try {
-      console.log('Obteniendo tareas del usuario:', this.user.id);
-      const response = await axios.get(`http://127.0.0.1:8000/tasks/user/${this.user.id}`);
-      const tareas = response.data;
-      this.tareasPendientes = tareas.filter(tarea => tarea.status === 'pending');
-      this.tareasHechas = tareas.filter(tarea => tarea.status === 'completed');
-      console.log('Tareas obtenidas:', tareas);
-    } catch (error) {
-      if (error.response) {
-        console.error('Error al obtener las tareas:', error.response.data);
-        this.errorMessage = 'Error al obtener las tareas: ' + JSON.stringify(error.response.data.detail);
-      } else {
-        console.error('Error al obtener las tareas:', error.message);
-        this.errorMessage = 'Error al obtener las tareas: ' + error.message;
+    async obtenerTareas() {
+      try {
+        console.log('Obteniendo tareas del usuario:', this.user.id);
+        const response = await axios.get(`http://127.0.0.1:8000/tasks/user/${this.user.id}`);
+        const tareas = response.data;
+        this.tareasPendientes = tareas.filter(tarea => tarea.status === 'pending');
+        this.tareasHechas = tareas.filter(tarea => tarea.status === 'completed');
+        console.log('Tareas obtenidas:', tareas);
+      } catch (error) {
+        if (error.response) {
+          console.error('Error al obtener las tareas:', error.response.data);
+          this.errorMessage = 'Error al obtener las tareas: ' + JSON.stringify(error.response.data.detail);
+        } else {
+          console.error('Error al obtener las tareas:', error.message);
+          this.errorMessage = 'Error al obtener las tareas: ' + error.message;
+        }
       }
-    }
-  },
+    },
 
-  async marcarTareaComoHecha(task_id) {
-    try {
-      console.log('Marcando tarea como hecha:', task_id);
-      const response = await axios.put(`http://127.0.0.1:8000/tasks/${task_id}/completed`);
-      console.log('Tarea marcada como hecha:', response.data);
-      // Actualizar la lista de tareas después de marcar como hecha
-      this.obtenerTareas();
-    } catch (error) {
-      if (error.response) {
-        console.error('Error al marcar la tarea como hecha:', error.response.data);
-        this.errorMessage = 'Error al marcar la tarea como hecha: ' + JSON.stringify(error.response.data.detail);
-      } else {
-        console.error('Error al marcar la tarea como hecha:', error.message);
-        this.errorMessage = 'Error al marcar la tarea como hecha: ' + error.message;
+    async marcarTareaComoHecha(task_id) {
+      try {
+        console.log('Marcando tarea como hecha:', task_id);
+        const response = await axios.put(`http://127.0.0.1:8000/tasks/${task_id}/completed`);
+        console.log('Tarea marcada como hecha:', response.data);
+        this.obtenerTareas();
+      } catch (error) {
+        if (error.response) {
+          console.error('Error al marcar la tarea como hecha:', error.response.data);
+          this.errorMessage = 'Error al marcar la tarea como hecha: ' + JSON.stringify(error.response.data.detail);
+        } else {
+          console.error('Error al marcar la tarea como hecha:', error.message);
+          this.errorMessage = 'Error al marcar la tarea como hecha: ' + error.message;
+        }
       }
-    }
+    },
+
+    async obtenerUsuario(userId) {
+      try {
+        console.log('Obteniendo usuario:', userId);
+        const response = await axios.get(`http://127.0.0.1:8000/users/${userId}`);
+        this.user = response.data;
+        console.log('Usuario obtenido:', this.user);
+      } catch (error) {
+        console.error('Error al obtener el usuario:', error);
+      }
+    },
+
+    descargarPDF() {
+      const doc = new jsPDF();
+      doc.setFontSize(18);
+      doc.text(`Tareas de ${this.user.username}`, 14, 20);
+      
+      const tareas = this.tareasPendientes.map(tarea => [
+        tarea.id, 
+        tarea.title, 
+        tarea.description,
+        tarea.status
+      ]);
+
+      doc.autoTable({
+        head: [['ID', 'Título', 'Descripción', 'Estado']],
+        body: tareas,
+        startY: 30,
+      });
+
+      doc.save('tareas.pdf');
+    },
   },
 
-  async obtenerUsuario(userId) {
-    try {
-      console.log('Obteniendo usuario:', userId);
-      const response = await axios.get(`http://127.0.0.1:8000/users/${userId}`);
-      this.user = response.data;
-      console.log('Usuario obtenido:', this.user);
-    } catch (error) {
-      console.error('Error al obtener el usuario:', error);
+  mounted() {
+    const userId = this.$route.params.userId;
+    if (userId) {
+      this.obtenerUsuario(userId).then(() => {
+        this.obtenerTareas();
+      });
+    } else {
+      console.error('No se encontró userId en los parámetros de la ruta');
     }
   },
-},
-
-mounted() {
-  const userId = this.$route.params.userId;
-  if (userId) {
-    this.obtenerUsuario(userId).then(() => {
-      this.obtenerTareas();
-    });
-  } else {
-    console.error('No se encontró userId en los parámetros de la ruta');
-  }
-},
 };
 </script>
+
+
 
 <style scoped>
 *{
