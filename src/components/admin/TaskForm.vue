@@ -99,7 +99,7 @@ export default {
           deadline: this.deadline,
           status: 'pending'
         })
-        .then(response => {
+        .then(() => {
           Swal.fire({
             icon: 'success',
             title: 'Tarea creada',

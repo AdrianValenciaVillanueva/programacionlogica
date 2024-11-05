@@ -35,7 +35,7 @@
                 />
             </div>
             <div class="ContenedorBot">
-            <button class="botonCon" @click="enviar">Crear usuario</button>
+                <button class="botonCon" @click="enviar">Crear usuario</button>
             </div>
         </div>
         <div class="redireccion">
@@ -52,36 +52,43 @@
                 </router-link>
             </div>
         </div>
-        <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
     </div>
 </template>
 
 <script>
- import axios from "axios";
+import axios from "axios";
+import Swal from "sweetalert2";
+
 export default {
-   
   name: 'CrearUsuario',
   data() {
     return {
-        username: '',
-        admin: false,
-        equipo: '',
-        contrasenia: '',
-        confirmar: '',
-        errorMessage: '' // Para mostrar mensajes de error
+      username: '',
+      admin: false,
+      equipo: '',
+      contrasenia: '',
+      confirmar: ''
     };
   },
   methods: {
     async enviar() {
       // Verificar si las contraseñas coinciden
       if (this.contrasenia !== this.confirmar) {
-        this.errorMessage = 'Las contraseñas no coinciden. Por favor, verifica e intenta de nuevo.';
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Las contraseñas no coinciden. Por favor, verifica e intenta de nuevo.'
+        });
         return;
       }
 
       // Verificar si todos los campos están completos
       if (!this.username || !this.equipo || !this.contrasenia || !this.confirmar) {
-        this.errorMessage = 'Por favor, completa todos los campos.';
+        Swal.fire({
+          icon: 'error',
+          title: 'Campos incompletos',
+          text: 'Por favor, completa todos los campos.'
+        });
         return;
       }
 
@@ -93,22 +100,29 @@ export default {
           id_team: this.equipo
         });
         console.log('Usuario creado:', response.data);
-        // redirigir a la página de inicio de sesión
-        this.$router.push('/iniciar-sesion');
-        this.errorMessage = ''; // Limpiar mensaje de error si todo es correcto
+        
+        // Mostrar mensaje de éxito y redirigir
+        Swal.fire({
+          icon: 'success',
+          title: 'Usuario creado',
+          text: 'El usuario se ha creado exitosamente.',
+        }).then(() => {
+          this.$router.push('/iniciar-sesion');
+        });
       } catch (error) {
-        if (error.response) {
-          console.error('Error al crear el usuario:', error.response.data);
-          this.errorMessage = 'Error al crear el usuario: ' + JSON.stringify(error.response.data);
-        } else {
-          console.error('Error al crear el usuario:', error.message);
-          this.errorMessage = 'Error al crear el usuario: ' + error.message;
-        }
+        console.error('Error al crear el usuario:', error.response ? error.response.data : error.message);
+        
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al crear usuario',
+          text: error.response ? JSON.stringify(error.response.data) : error.message
+        });
       }
     }
   }
 };
 </script>
+
 
 <style scoped>
 * {
