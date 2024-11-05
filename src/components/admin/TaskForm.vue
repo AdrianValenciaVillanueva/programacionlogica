@@ -52,6 +52,7 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import VueSelect from 'vue-select';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
   components: {
@@ -79,45 +80,40 @@ export default {
     },
     createTask() {
       if (!this.validateForm()) {
-        console.error("Formulario no válido");
+        Swal.fire({
+          icon: 'error',
+          title: 'Error de validación',
+          text: 'Por favor, completa todos los campos obligatorios.',
+        });
         return;
       }
-      // const taskData = {
-      //   title: this.title,
-      //   description: this.description,
-      //   users: this.usersSelected,
-      //   dueDate: this.date,
-      // };
-      this.usersSelected.forEach( id => {
-        axios.post('http://127.0.0.1:8000/tasks',
-          {
-            "title": this.title,
-            "description": this.description,
-            "user_id": id,
-            "team_id": this.$route.params.teamId,
-            "created_at": new Date(),
-            "updated_at": new Date(),
-            "deadline": this.deadline,
-            "status": "pending"
-          }
-        )
+
+      this.usersSelected.forEach(id => {
+        axios.post('http://127.0.0.1:8000/tasks', {
+          title: this.title,
+          description: this.description,
+          user_id: id,
+          team_id: this.$route.params.teamId,
+          created_at: new Date(),
+          updated_at: new Date(),
+          deadline: this.deadline,
+          status: 'pending'
+        })
         .then(response => {
-          console.log(`tarea subida`,response);
+          Swal.fire({
+            icon: 'success',
+            title: 'Tarea creada',
+            text: `La tarea se creó con éxito para todos los usuarios`,
+          });
         })
         .catch(error => {
-          console.error(`Hubo un error subiendo tareas ${error}`);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al crear tarea',
+            text: `Hubo un error subiendo tareas: ${error.message}`,
+          });
         });
       });
-
-      console.log('TAREA SUBIDA A TODOS LOS USUARIOS');
-
-      // axios.post('http://127.0.0.1:8000/tasks', taskData)
-      //   .then(response => {
-      //     console.log("Tarea creada con éxito:", response.data);
-      //   })
-      //   .catch(error => {
-      //     console.error("Error al crear la tarea:", error);
-      //   });
     },
     validateForm() {
       return (
@@ -130,32 +126,27 @@ export default {
   },
   computed: {
     filteredUsers() {
-      // Filtrar los usuarios para que solo incluya aquellos que no están seleccionados
-      console.log("Calculando filteredUsers...");
-      const filtered = this.users.filter(
-        user => !this.usersSelected.some(selected => selected.id === user.id)
-      );
-      console.log("Usuarios disponibles después de filtrar:", filtered);
-      return filtered;
+      return this.users.filter(user => !this.usersSelected.some(selected => selected.id === user.id));
     }
   },
   mounted() {
     const teamId = this.$route.params.teamId;
-    console.log(teamId);
-
     axios.get(`http://127.0.0.1:8000/users/team/${teamId}`)
       .then(response => {
         const id = this.$route.params.userId;
         this.users = response.data.filter(d => !d.is_admin && d.id !== id);
-        console.log(this.users);
-        
       })
       .catch(error => {
-        console.error(`Error obteniendo usuarios del equipo: ${error}`);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al obtener usuarios',
+          text: `Hubo un error obteniendo usuarios del equipo: ${error.message}`,
+        });
       });
   },
 };
 </script>
+
 <style scoped>
 @import "vue-select/dist/vue-select.css";
 /* 64ac15 */
