@@ -35,7 +35,7 @@
                 />
             </div>
             <div class="ContenedorBot">
-            <button class="botonCon" @click="enviar">Crear equipo</button>
+                <button class="botonCon" @click="enviar">Crear equipo</button>
             </div>
         </div>
         <div class="redireccion">
@@ -52,12 +52,12 @@
                 </router-link>
             </div>
         </div>
-        <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
   name: 'CrearEquipo',
@@ -67,21 +67,28 @@ export default {
       admin: true,
       equipo: '',
       contrasenia: '',
-      confirmar: '',
-      errorMessage: ''
+      confirmar: ''
     };
   },
   methods: {
     async enviar() {
       // Verificar si las contraseñas coinciden
       if (this.contrasenia !== this.confirmar) {
-        this.errorMessage = 'Las contraseñas no coinciden. Por favor, verifica e intenta de nuevo.';
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Las contraseñas no coinciden. Por favor, verifica e intenta de nuevo.'
+        });
         return;
       }
 
       // Verificar si todos los campos están completos
       if (!this.username || !this.equipo || !this.contrasenia || !this.confirmar) {
-        this.errorMessage = 'Por favor, completa todos los campos.';
+        Swal.fire({
+          icon: 'warning',
+          title: 'Campos incompletos',
+          text: 'Por favor, completa todos los campos.'
+        });
         return;
       }
 
@@ -93,17 +100,27 @@ export default {
           id_team: this.equipo
         });
         console.log('Usuario creado:', response.data);
-        // redirigir a la página de inicio de sesión
-        this.$router.push('/iniciar-sesion');
-        this.errorMessage = ''; // Limpiar mensaje de error si todo es correcto
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Equipo creado',
+          text: 'El equipo se ha creado exitosamente.'
+        }).then(() => {
+          // Redirigir a la página de inicio de sesión después de la confirmación
+          this.$router.push('/iniciar-sesion');
+        });
       } catch (error) {
+        let errorMessage = 'Error al crear el usuario';
         if (error.response) {
-          console.error('Error al crear el usuario:', error.response.data);
-          this.errorMessage = 'Error al crear el usuario: ' + JSON.stringify(error.response.data);
+          errorMessage += ': ' + JSON.stringify(error.response.data);
         } else {
-          console.error('Error al crear el usuario:', error.message);
-          this.errorMessage = 'Error al crear el usuario: ' + error.message;
+          errorMessage += ': ' + error.message;
         }
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: errorMessage
+        });
       }
     }
   }
