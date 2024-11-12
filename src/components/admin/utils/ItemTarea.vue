@@ -23,7 +23,7 @@
         <div class="col-mitad">
 
             <div class="select-users">
-                <button class="btn-form" @click="seeUsers">usuarios asignados</button>
+                <button class="btn-form" @click="seeUsers">Usuarios asignados</button>
             </div>
         </div>
 

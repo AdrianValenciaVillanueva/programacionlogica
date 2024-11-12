@@ -42,15 +42,19 @@
                 </div>
             </section>
         </div>
+        <div class="grafico">
+        <canvas id="entregaChart"></canvas>
+        </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
 
 export default {
-    components: {
-    },
+    components: {},
     data() {
         return {
             title: '',
@@ -61,65 +65,149 @@ export default {
     methods: {
         loadUsers() {
             const teamId = this.$route.params.teamId;
-            axios.get(`http://127.0.0.1:8000/tasks/team/${teamId}`)
-            .then(response => {
-                const tasks = response.data.filter(u => u.title === this.title);
-                console.log(tasks);
+            return axios.get(`http://127.0.0.1:8000/tasks/team/${teamId}`)
+                .then(response => {
+                    const tasks = response.data.filter(u => u.title === this.title);
+                    console.log(tasks);
 
-                let pendingIds = [];
-                let sentIds = [];
+                    let pendingIds = [];
+                    let sentIds = [];
 
-                for (const task of tasks) {
-                    if (task.status === "pending") {
-                        pendingIds.push(task.user_id);
+                    for (const task of tasks) {
+                        if (task.status === "pending") {
+                            pendingIds.push(task.user_id);
+                        } else if (task.status === "completed") {
+                            sentIds.push(task.user_id);
+                        }
                     }
-                    else if (task.status === "completed") {
-                        sentIds.push(task.user_id);
+                    console.log('enviados', sentIds);
+                    console.log('pendientes', pendingIds);
+
+                    // Creamos arrays de promesas para las solicitudes de usuarios
+                    const sentRequests = sentIds.map(id =>
+                        axios.get(`http://127.0.0.1:8000/users/${id}`)
+                            .then(response => {
+                                this.usersSent.push(response.data);
+                            })
+                            .catch(error => {
+                                console.error('Error obteniendo usuario id', id, error);
+                            })
+                    );
+
+                    const pendingRequests = pendingIds.map(id =>
+                        axios.get(`http://127.0.0.1:8000/users/${id}`)
+                            .then(response => {
+                                this.usersPending.push(response.data);
+                            })
+                            .catch(error => {
+                                console.error('Error obteniendo usuario id', id, error);
+                            })
+                    );
+
+                    // Retornamos Promise.all para asegurar que todas las solicitudes se completen
+                    return Promise.all([...sentRequests, ...pendingRequests]);
+                })
+                .catch(error => {
+                    console.error('Error consiguiendo usuarios en tarea', this.title, error);
+                });
+        },
+
+        // Este método renderiza el gráfico
+        renderChart() {
+            const ctx = document.getElementById('entregaChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie', // Puedes cambiar a 'bar' o 'doughnut' si prefieres
+                data: {
+                    labels: ['Entregados', 'No entregados'],
+                    datasets: [{
+                        label: 'Estado de Entrega',
+                        data: [this.usersSent.length, this.usersPending.length],
+                        backgroundColor: ['#4CAF50', '#F44336'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 18 // Tamaño de la fuente de la leyenda
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Usuarios que entregaron y no entregaron',
+                            font: {
+                                size: 22 // Tamaño de la fuente del título
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: false, // Esto quita lo que rodea al circulo en x
+                            ticks: {
+                                font: {
+                                    size: 16 
+                                }
+                            },
+                            grid: {
+                            display: false, //Se elimina la cuadricula respecto a x
+                    }
+                        },
+                        y: {
+                            display: false, //Esto quita lo que rodea al circulo en y
+                            ticks: {
+                                font: {
+                                    size: 16 
+                                }
+                            },
+                            grid: {
+                                display: false, //Se elimina la cuadricula respecto a y
+                    }
+                        }
                     }
                 }
-                console.log('enviados', sentIds);
-                console.log('pendientes', pendingIds);
-                
-                sentIds.forEach(id => {
-                    axios.get(`http://127.0.0.1:8000/users/${id}`)
-                    .then(response => {
-                        this.usersSent.push(response.data);
-                    })
-                    .catch(error => {
-                        console.error('Error obteniendo usuario id', error);
-                    });
-                });
-
-                pendingIds.forEach(id => {
-                    axios.get(`http://127.0.0.1:8000/users/${id}`)
-                    .then(response => {
-                        this.usersPending.push(response.data);
-                    })
-                    .catch(error => {
-                        console.error('Error obteniendo usuario id', error);
-                    });
-                });
-            })
-            .catch(error => {
-                console.error('Error consiguiendo usuarios en tarea', this.title, error);
             });
         },
+
         goBack() {
             this.$router.back();
         }
     },
     mounted() {
-        this.loadUsers();
         this.title = this.$route.params.tarea;
-    },
+        this.loadUsers().then(() => {
+            // Configura el gráfico después de cargar los datos
+            this.renderChart();
+        }).catch(error => {
+            console.error('Error al cargar usuarios o al renderizar el gráfico:', error);
+        });
+    }
 }
 </script>
+
 <style scoped>
 * {
     background-color: #f9f9f9;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
     color: black;
 }
+.grafico {
+    padding-top: 20px;
+    width: 500px; /* Ajusta este valor según el tamaño que prefieras */
+    height: 500px; /* Ajusta este valor según el tamaño que prefieras */
+    text-align: center; /* Centra el contenido dentro del div */
+}
+
+.grafico canvas {
+    width: 100%; 
+    height: 100%; 
+}
+
+
+
 .usuarios-container {
     display: flex;
     flex-flow: column;

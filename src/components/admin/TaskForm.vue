@@ -105,6 +105,12 @@ export default {
             title: 'Tarea creada',
             text: `La tarea se creó con éxito para todos los usuarios`,
           });
+
+          //Este es para limpiar los datos despues de que la tarea fuera creada con exito
+          this.title = '';
+          this.description = '';
+          this.usersSelected = [];
+          this.deadline = new Date();
         })
         .catch(()=> {
           Swal.fire({
