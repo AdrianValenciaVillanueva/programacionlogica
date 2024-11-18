@@ -124,20 +124,23 @@ export default {
 }
 
 h1 {
+    font-weight: bold;
     font-size: 3rem;
     text-align: center;
     color: #062743;
+    padding-bottom: 30px;
 }
 
 .rectangulo {
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 45px;
-    background-color: #F7F4F4;
+    background-color: #113A5D; /* Color original del texto */
     width: 650px;
-    height: 400px;
+    height: 350px;
     padding-left: 30px;
     padding-right: 30px;
     box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.3);
@@ -152,8 +155,9 @@ h1 {
 
 .textfields input {
     border-radius: 25px;
-    border: 2px solid;
-    border-color: #113A5D;
+    border: 2px solid #F7F4F4; 
+    background-color: #F7F4F4; 
+    color: #000000; 
     width: 590px;
     height: 60px;
     font-size: 1.5rem;
@@ -163,14 +167,15 @@ h1 {
 }
 
 .textfields label {
-    color: #113A5D;
+    color: #F7F4F4; 
+    font-weight: bold;
     text-align: justify;
     margin-bottom: 5px;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .textfields input:focus {
-    border-color: #C4FFDD;
+    border-color: #C4FFDD; /* Mantengo un color contrastante */
     box-shadow: 0 0 5px #C4FFDD;
     outline: none;
 }
@@ -184,22 +189,24 @@ h1 {
 .botonCon {
     text-align: center;
     border: none;
-    background-color: #113A5D;
+    background-color: #F7F4F4; /* Fondo claro */
     font-size: 1.5rem;
-    color: #FFFFFF;
-    height: 70px;
-    width: 250px;
+    font-weight: bold;
+    color: #113A5D; /* Texto oscuro */
+    height: 60px;
+    width: 220px;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .botonCon:hover {
-    background-color: #062743;
+    background-color: #C4FFDD; /* Hover contrastante */
+    color: #062743;
 }
 
 .redireccion {
-    padding-top: 10px;
+    padding-top: 20px;
     font-size: 1.2rem;
     display: flex;
     width: 590px;
@@ -217,7 +224,7 @@ h1 {
     font-size: 1.1rem;
     color: #FFFFFF;
     margin-top: -10px;
-    padding: 15px 30px;
+    padding: 10px 20px;
     background-color: #113A5D;
     cursor: pointer;
     border: none;

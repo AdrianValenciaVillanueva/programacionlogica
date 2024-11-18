@@ -35,7 +35,7 @@
                 />
             </div>
             <div class="ContenedorBot">
-                <button class="botonCon" @click="enviar">Crear equipo</button>
+                <button class="botonCon" @click="enviar">Crear</button>
             </div>
         </div>
         <div class="redireccion">
@@ -138,12 +138,15 @@ export default {
 
 .principal {
     justify-items: center;
+    padding-top: 30px;
 }
 
 h1 {
     font-size: 3rem;
+    font-weight: bold;
     text-align: center;
     color: #062743;
+    padding-bottom: 30px;
 }
 
 .rectangulo {
@@ -152,8 +155,8 @@ h1 {
     justify-content: center;
     align-items: center;
     border-radius: 45px;
-    background-color: #F7F4F4;
-    width: 650px;
+    background-color: #113A5D; /* Fondo oscuro */
+    width: 600px;
     padding: 30px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
     margin: 0 auto;
@@ -167,8 +170,10 @@ h1 {
 
 .textfields input {
     border-radius: 25px;
-    border: 2px solid #113A5D;
-    width: 590px;
+    border: 2px solid #113A5D; 
+    background-color: #FFFFFF;
+    color: #000000; 
+    width: 530px;
     height: 60px;
     font-size: 1.5rem;
     outline: none;
@@ -176,14 +181,15 @@ h1 {
 }
 
 .textfields label {
-    color: #113A5D;
+  font-weight: bold;
+    color: #F7F4F4; /* Texto claro */
     margin-bottom: 5px;
     text-align: justify;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .textfields input:focus {
-    border-color: #C4FFDD;
+    border-color: #C4FFDD; /* Color de enfoque */
     box-shadow: 0 0 5px #C4FFDD;
     outline: none;
 }
@@ -196,19 +202,21 @@ h1 {
 
 .botonCon {
     text-align: center;
+    font-weight: bold;
     border: none;
-    background-color: #113A5D;
+    background-color: #F7F4F4; /* Fondo claro */
     font-size: 1.5rem;
-    color: #FFFFFF;
-    height: 70px;
-    width: 250px;
+    color: #113A5D; /* Texto oscuro */
+    height: 60px;
+    width: 150px;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .botonCon:hover {
-    background-color: #062743;
+    background-color: #C4FFDD; /* Hover contrastante */
+    color: #062743;
 }
 
 .redireccion {
@@ -217,6 +225,8 @@ h1 {
     width: 590px;
     justify-content: space-between;
     margin: 0 auto;
+    padding-top: 20px;
+    margin-bottom: 30px;
 }
 
 .redireccion-item {
@@ -228,8 +238,8 @@ h1 {
 .redireccion button {
     font-size: 1.1rem;
     color: #FFFFFF;
-    padding: 15px 30px;
-    background-color: #113A5D;
+    padding: 10px 20px;
+    background-color: #113A5D; /* Fondo oscuro */
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -241,7 +251,7 @@ h1 {
 }
 
 .error-message {
-    color: #ff0000;
+    color: #FF0000;
     font-size: 1.2rem;
     text-align: center;
     margin-top: 20px;
