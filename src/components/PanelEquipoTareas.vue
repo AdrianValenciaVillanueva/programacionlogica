@@ -125,7 +125,7 @@
 <script>
 import axios from 'axios';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable'; // Importar correctamente la librería
+import 'jspdf-autotable';
 
 export default {
   data() {
@@ -139,6 +139,7 @@ export default {
         is_admin: false,
         id_team: '',
       },
+      pollingInterval: null,
     };
   },
 
@@ -210,6 +211,19 @@ export default {
 
       doc.save('tareas.pdf');
     },
+
+    iniciarPolling() {
+      this.pollingInterval = setInterval(() => {
+        this.obtenerTareas();
+      }, 5000); // Polling cada 5 segundos
+    },
+
+    detenerPolling() {
+      if (this.pollingInterval) {
+        clearInterval(this.pollingInterval);
+        this.pollingInterval = null;
+      }
+    },
   },
 
   mounted() {
@@ -217,10 +231,15 @@ export default {
     if (userId) {
       this.obtenerUsuario(userId).then(() => {
         this.obtenerTareas();
+        this.iniciarPolling();
       });
     } else {
       console.error('No se encontró userId en los parámetros de la ruta');
     }
+  },
+
+  beforeUnmount() {
+    this.detenerPolling();
   },
 };
 </script>
